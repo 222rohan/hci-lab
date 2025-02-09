@@ -152,18 +152,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartContainer = document.querySelector('.cart-container');
     const cartItems = JSON.parse(localStorage.getItem('cart') || '[]');
     
-    // Clear existing cart items
     while (cartContainer.firstChild) {
       cartContainer.removeChild(cartContainer.firstChild);
     }
     
-    // Add cart items
     cartItems.forEach(item => {
       const cartItem = document.createElement('div');
       cartItem.className = 'cart-item';
       cartItem.innerHTML = `
-        <div class="item-info">${item.title} (x${item.quantity})</div>
         <div class="price">${item.price}</div>
+        <div class="item-info">${item.quantity} (x${item.title})</div>
         <button class="remove-btn" data-id="${item.id}">✕</button>
       `;
       cartContainer.appendChild(cartItem);
