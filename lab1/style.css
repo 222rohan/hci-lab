@@ -21,6 +21,12 @@ header {
 }
 header h1 {
   font-size: 2em;
+  color: #fff;
+  transition: color 0.3s, text-decoration 0.3s;
+  }
+  header h1:hover {
+    color: rgb(41, 41, 121);
+    text-decoration: underline;
 }
 
 main {
@@ -216,6 +222,8 @@ main {
   align-items: center;
   justify-content: space-around;
   padding: 10px;
+  padding-left: 20%;
+  padding-right: 20%;
   position: fixed;
   bottom: 0;
   width: 100%;
