@@ -147,6 +147,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Helper function to parse price string into number
+  const parsePrice = (priceString) => {
+    return parseFloat(priceString.replace('₹', '').replace(',', ''));
+  };
+
   // Cart Page Functionality
   if (window.location.pathname.includes('cart.html')) {
     const cartContainer = document.querySelector('.cart-container');
@@ -160,8 +165,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const cartItem = document.createElement('div');
       cartItem.className = 'cart-item';
       cartItem.innerHTML = `
-        <div class="price">${item.price}</div>
-        <div class="item-info">${item.quantity} (x${item.title})</div>
+        <div class="price">₹${(parsePrice(item.price) * item.quantity).toFixed(2)}</div>
+        <div class="item-info">${item.title} (x${item.quantity})</div>
         <button class="remove-btn" data-id="${item.id}"><img src="./images/knotted-sack-icon.svg" alt="Remove" style="width: 20px; height: 20px;"></button>      
       `;
       cartContainer.appendChild(cartItem);
@@ -169,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Calculate and add total
     const total = cartItems.reduce((sum, item) => {
-      const price = parseFloat(item.price.replace('₹', ''));
+      const price = parsePrice(item.price);
       return sum + (price * item.quantity);
     }, 0);
     
@@ -187,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
     buttonContainer.innerHTML = `
       <button class="btn btn-buy">Buy</button>
       <button class="btn btn-shop" onclick="window.location.href='index.html'">Shop</button>
-      `;
+    `;
     cartContainer.appendChild(buttonContainer);
     
     // Handle remove item
@@ -202,11 +207,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// search when 'enter' key is pressed -- pls fix
-const searchInput = document.getElementById('searchInput');
-if (searchInput) {
+// search functionality
+const searchBar = document.getElementById('searchBar');
+if (searchBar) {
   const performSearch = () => {
-    const query = searchInput.value.trim().toLowerCase();
+    const query = searchBar.value.trim().toLowerCase();
     const allCards = document.querySelectorAll('.card');
     allCards.forEach(card => {
       const title = card.querySelector('h2')?.textContent.toLowerCase() || '';
@@ -219,7 +224,7 @@ if (searchInput) {
     });
   };
 
-  searchInput.addEventListener('keydown', (e) => {
+  searchBar.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       performSearch();
     }
