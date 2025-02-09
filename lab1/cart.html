@@ -28,7 +28,13 @@
 
         header h1 {
             text-align: center;
-        }
+            color: #fff;
+            transition: color 0.3s, text-decoration 0.3s;
+            }
+        header h1:hover {
+            color: rgb(41, 41, 121);
+            text-decoration: underline
+            }
 
         header h1 a {
             color: black;
@@ -174,25 +180,25 @@
 </head>
 <body>
     <header>
-        <h1><a href="index.html">Shopping App</a></h1>
+        <h1>Shopping App</a></h1>
     </header>
 
     <main>
         <div class="cart-container">
             <div class="cart-item">
                 <div class="item-info">Product Name</div>
-                <div class="price">$50.00</div>
-                <button class="remove-btn">✕</button>
+                <div class="price">₹50.00</div>
+            <button class="remove-btn"><img src="./images/knotted-sack-icon.svg" alt="Remove" style="width: 20px; height: 20px;"></button>
             </div>
 
             <div class="cart-total">
                 <span class="total-text">Total</span>
-                <span class="total-amount">$50.00</span>
+                <span class="total-amount">₹50.00</span>
             </div>
 
             <div class="button-container">
-                <link class="btn btn-shop" onclick="window.location.href='index.html'">Shop</link>
-                <link class="btn btn-buy">Buy</link>
+                <button class="btn btn-buy">Buy</button>
+                <button class="btn btn-shop" onclick="window.location.href='index.html'">Shop</button>
             </div>
         </div>
     </main>

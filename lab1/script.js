@@ -162,14 +162,14 @@ document.addEventListener('DOMContentLoaded', () => {
       cartItem.innerHTML = `
         <div class="price">${item.price}</div>
         <div class="item-info">${item.quantity} (x${item.title})</div>
-        <button class="remove-btn" data-id="${item.id}">✕</button>
+        <button class="remove-btn" data-id="${item.id}"><img src="./images/knotted-sack-icon.svg" alt="Remove" style="width: 20px; height: 20px;"></button>      
       `;
       cartContainer.appendChild(cartItem);
     });
     
     // Calculate and add total
     const total = cartItems.reduce((sum, item) => {
-      const price = parseFloat(item.price.replace('$', ''));
+      const price = parseFloat(item.price.replace('₹', ''));
       return sum + (price * item.quantity);
     }, 0);
     
@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cartTotal.className = 'cart-total';
     cartTotal.innerHTML = `
       <span class="total-text">Total</span>
-      <span class="total-amount">$${total.toFixed(2)}</span>
+      <span class="total-amount">₹${total.toFixed(2)}</span>
     `;
     cartContainer.appendChild(cartTotal);
     
@@ -185,15 +185,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const buttonContainer = document.createElement('div');
     buttonContainer.className = 'button-container';
     buttonContainer.innerHTML = `
-      <button class="btn btn-shop" onclick="window.location.href='index.html'">Shop</button>
       <button class="btn btn-buy">Buy</button>
-    `;
+      <button class="btn btn-shop" onclick="window.location.href='index.html'">Shop</button>
+      `;
     cartContainer.appendChild(buttonContainer);
     
     // Handle remove item
     document.querySelectorAll('.remove-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
-        const itemId = e.target.dataset.id;
+        const itemId = e.currentTarget.dataset.id;
         const cart = cartItems.filter(item => item.id !== itemId);
         localStorage.setItem('cart', JSON.stringify(cart));
         location.reload();
@@ -201,3 +201,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// search when 'enter' key is pressed -- pls fix
+const searchInput = document.getElementById('searchInput');
+if (searchInput) {
+  const performSearch = () => {
+    const query = searchInput.value.trim().toLowerCase();
+    const allCards = document.querySelectorAll('.card');
+    allCards.forEach(card => {
+      const title = card.querySelector('h2')?.textContent.toLowerCase() || '';
+      const description = card.querySelector('p')?.textContent.toLowerCase() || '';
+      if (title.includes(query) || description.includes(query)) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  };
+
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      performSearch();
+    }
+  });
+}
