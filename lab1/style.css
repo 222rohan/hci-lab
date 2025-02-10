@@ -3,9 +3,10 @@
   margin: 0;
   padding: 0;
 }
-body, html {
-  overscroll-behavior: none !important;
-  overflow-x: hidden;
+body {
+  font-family: Arial, sans-serif;
+  background: #f7f7f7;
+  line-height: 1.6;
 }
 
 /* Header */
@@ -42,9 +43,6 @@ main {
   gap: 20px;
   justify-content: center;
   max-height: 85vh; /* Set a maximum height */
-  overscroll-behavior-y: none !important;
-  touch-action: none;
-  scroll-behavior: auto !important;
   overflow-y: auto; /* Enable vertical scrolling */
   padding-right: 10px; /* Space for scrollbar */
   position: relative;
