@@ -230,3 +230,74 @@ if (searchBar) {
     }
   });
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  let startTime = Date.now();
+  let clickCountBeforeCorrectAction = {};
+  let usabilityMetrics = [];
+
+  function logMetric(action, details = {}) {
+      const timeTaken = Date.now() - startTime;
+      usabilityMetrics.push({ action, timeTaken, ...details });
+      console.log(`Metric Logged:`, { action, timeTaken, ...details });
+  }
+
+  // Track Modal Close Time
+  const closeModal = document.getElementById("closeModalText");
+  if (closeModal) {
+      closeModal.addEventListener("click", function () {
+          logMetric("close_modal", {});
+      });
+  }
+
+  // Track Clicks Before Clicking Right Button
+  document.addEventListener("click", function (event) {
+      const target = event.target;
+      
+      if (!clickCountBeforeCorrectAction[target.id]) {
+          clickCountBeforeCorrectAction[target.id] = 0;
+      }
+      clickCountBeforeCorrectAction[target.id]++;
+
+      if (target.id === "addToCartBtn") {
+          logMetric("add_to_cart", { clicksBefore: clickCountBeforeCorrectAction[target.id] });
+          clickCountBeforeCorrectAction[target.id] = 0; // Reset count
+      }
+  });
+
+  // Track Scroll Usage (Detect if user is trying to scroll the item list with a mouse)
+  const productGrid = document.querySelector(".product-grid");
+  if (productGrid) {
+      productGrid.addEventListener("wheel", function () {
+          logMetric("tried_mouse_scroll", {});
+      });
+  }
+
+  // Track Incorrect Logo Clicks
+  const siteLogo = document.querySelector("footer h1");
+  if (siteLogo) {
+      siteLogo.addEventListener("click", function () {
+          logMetric("clicked_non_clickable_logo", {});
+      });
+  }
+
+  // Track Search Input Interaction
+  const searchBar = document.getElementById("searchBar");
+  if (searchBar) {
+      searchBar.addEventListener("focus", function () {
+          logMetric("search_bar_used", {});
+      });
+  }
+
+  // Track Item Quantity Button Misplacement Issue
+  const addQuantityBtn = document.getElementById("addQuantityBtn");
+  const removeQuantityBtn = document.getElementById("removeQuantityBtn");
+  if (addQuantityBtn && removeQuantityBtn) {
+      addQuantityBtn.addEventListener("click", function () {
+          logMetric("clicked_wrong_quantity_button", {});
+      });
+      removeQuantityBtn.addEventListener("click", function () {
+          logMetric("clicked_wrong_quantity_button", {});
+      });
+  }
+});
