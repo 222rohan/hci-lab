@@ -37,6 +37,7 @@ main {
 }
 
 .product-grid {
+  
   display: grid;
   grid-template-columns: repeat(3, 300px);
   gap: 20px;
@@ -223,7 +224,7 @@ main {
   align-items: center;
   justify-content: space-around;
   padding: 15px;
-  padding-left: 20%;
+  padding-left: 2 0%;
   padding-right: 20%;
   position: fixed;
   bottom: 0;
