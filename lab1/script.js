@@ -3,6 +3,10 @@ if (!localStorage.getItem('cart')) {
   localStorage.setItem('cart', JSON.stringify([]));
 }
 
+window.addEventListener('wheel', function(e) {
+  e.preventDefault();
+}, { passive: false });
+
 document.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('itemModal');
   const modalItemTitle = document.getElementById('modalItemTitle');
