@@ -158,6 +158,7 @@
 
         .bottom-menu {
             display: flex;
+            font-size: 18px;
             justify-content: space-between;
             align-items: center;
             max-width: 800px;
@@ -165,19 +166,26 @@
         }
 
         .menu-link {
-            color: black;
+            color: rgb(255, 255, 255);
             text-decoration: none;
             padding: 0.5rem 1rem;
         }
 
+        .bottom-menu h1 {
+        font-size: 24px;
+        color: white;
+        margin: 0;
+        font-weight: bold;
+        }
+        .bottom-menu h1:hover{
+        color: blue;
+        text-decoration: underline;
+        transition: color 0.3s ease, transform 0.3s ease;
+        }
        
     </style>
 </head>
 <body>
-    <header>
-        <h1>Shopping App</a></h1>
-    </header>
-
     <main>
         <div class="cart-container">
             <div class="cart-item">
@@ -200,8 +208,9 @@
 
     <footer>
         <nav class="bottom-menu">
-            <a href="index.html" class="menu-link">Home</a>
-            <a href="cart.html" class="menu-link">Cart</a>
+          <h1>Shopify</h1>
+          <a href="index.html" class="menu-link">Home</a>
+          <a href="cart.html" class="menu-link">Cart</a>
         </nav>
     </footer>
 
