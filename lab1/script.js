@@ -48,6 +48,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  document.addEventListener('DOMContentLoaded', () => {
+    const productGrid = document.querySelector('.product-grid');
+  
+    // Prevent default scroll behaviors
+    productGrid.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      
+      // Manual scrolling control
+      const scrollAmount = e.deltaY;
+      productGrid.scrollTop += scrollAmount;
+    }, { passive: false });
+  
+    // Prevent touch scrolling
+    productGrid.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+    }, { passive: false });
+  
+    // Add keyboard arrow key support
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowUp') {
+        productGrid.scrollTop -= 50;
+        e.preventDefault();
+      }
+      if (e.key === 'ArrowDown') {
+        productGrid.scrollTop += 50;
+        e.preventDefault();
+      }
+    });
+  });
+
   // Quantity Control Functions
   const updateQuantityDisplay = () => {
     quantityDisplay.textContent = currentQuantity;
