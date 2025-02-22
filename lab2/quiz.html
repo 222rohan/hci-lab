@@ -1,32 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Interactive Quiz</title>
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz App with Practice/Exam Modes</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-    <div class="quiz-container">
-        <h1>Test your General Knowledge!</h1>
-        <div class="progress-bar">
-            <div class="progress" id="progress-bar"></div>
-        </div>
-        <div id="question-container">
-            <p class="question" id="question-text"></p>
-            <div class="options" id="options-container"></div>
-            <p id="immediate-feedback" class="immediate-feedback"></p>
-            <div class="nav-buttons">
-            <button id="prev-btn" class="nav-btn hidden">← Previous</button>
-            <button id="next-btn" class="nav-btn" disabled>Next →</button>
-            </div>
-        </div>
-        <div id="result-container" class="hidden">
-            <p class="score" id="score-text"></p>
-            <p class="feedback" id="feedback-text"></p>
-            <button id="restart-btn" class="restart-btn">Restart Quiz</button>
-        </div>
+  <!-- 1) Landing Screen -->
+  <div id="mode-selection" class="mode-selection">
+    <h1>Are you ready to take the test?</h1>
+    <p>Choose a mode to begin:</p>
+    <button id="practice-btn" class="mode-btn">Practice Mode</button>
+    <button id="exam-btn" class="mode-btn">Exam Mode</button>
+  </div>
+
+  <!-- 2) Quiz Container -->
+  <div class="quiz-container hidden" id="quiz-container">
+    <!-- Title changes based on selected mode -->
+    <h2 id="mode-title"></h2>
+    
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+      <div class="progress" id="progress-bar"></div>
     </div>
-    <script src="script.js"></script>
+    
+    <div id="question-container">
+      <p class="question" id="question-text"></p>
+      <div class="options" id="options-container"></div>
+      <!-- Immediate feedback only appears in Practice Mode (and if answered) -->
+      <p id="immediate-feedback" class="immediate-feedback"></p>
+      
+      <!-- Navigation buttons -->
+      <div class="nav-buttons">
+        <button id="prev-btn" class="nav-btn hidden">← Previous</button>
+        <button id="next-btn" class="nav-btn" disabled>Next →</button>
+      </div>
+
+      <!-- This button only shows up in Review Mode to return to results -->
+      <button id="return-results-btn" class="nav-btn hidden">Return to Results</button>
+    </div>
+  </div>
+
+  <!-- 3) Results Container -->
+  <div id="result-container" class="hidden">
+    <p class="score" id="score-text"></p>
+    <p class="feedback" id="feedback-text"></p>
+
+    <!-- List of questions for review -->
+    <div id="question-review" class="question-review"></div>
+    
+    <button id="restart-btn" class="restart-btn">Restart</button>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
