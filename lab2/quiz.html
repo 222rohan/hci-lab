@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Quiz Page</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <!-- Top Navigation Bar -->
@@ -28,7 +28,7 @@
 
   <!-- Main Quiz Container -->
   <div class="quiz-container">
-    <!-- Left Sidebar: Mode Buttons -->
+    <!-- Left Sidebar: Mode Buttons (optional) -->
     <div id="left-sidebar">
       <a href="quiz.html?mode=practice" class="mode-btn">Practice Mode</a>
       <a href="quiz.html?mode=exam" class="mode-btn">Exam Mode</a>
@@ -36,7 +36,7 @@
 
     <!-- Center: Quiz Cards (Questions) -->
     <div id="quiz-cards">
-      <!-- Question cards are generated dynamically by script.js -->
+      <!-- Question cards generated dynamically by script.js -->
     </div>
 
     <!-- Right Sidebar: Collapsible Navigation & Statistics -->
@@ -45,7 +45,7 @@
       <div id="question-nav">
         <h4>Questions</h4>
         <div id="qnum-container">
-          <!-- Question number buttons will be generated dynamically -->
+          <!-- Question number buttons generated dynamically -->
         </div>
       </div>
       <div id="stats">
@@ -62,6 +62,15 @@
   <!-- Bottom Submit Button -->
   <div id="submit-container">
     <button id="submit-btn">Submit Test</button>
+  </div>
+
+  <!-- Results Container (shown after submission in Exam Mode) -->
+  <div id="results-container" class="hidden">
+    <h2 id="score-text">You scored 0 out of 5</h2>
+    <p>Click on a question number to review your answer vs. the correct answer:</p>
+    <div id="results-qnum-container">
+      <!-- Populated dynamically with question numbers -->
+    </div>
   </div>
 
   <script src="script.js"></script>
