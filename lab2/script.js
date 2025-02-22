@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
-  // Determine mode from URL parameter (default is exam mode)
+  // Determine mode from URL parameter (default = exam)
   const urlParams = new URLSearchParams(window.location.search);
   const mode = urlParams.get("mode") || "exam";
 
-  // Quiz Data (5 questions with options labeled A, B, C, D)
+  // Quiz Data
   const questions = [
     {
       id: 1,
@@ -37,21 +37,23 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   ];
 
-  // State Variables
+  // State
   const totalQuestions = questions.length;
-  let answers = {};       // Store user's selected option per question
-  let lockedQuestions = {}; // For practice mode: track if question is locked after first selection
+  let answers = {};         // user’s chosen options
+  let lockedQuestions = {}; // for practice mode immediate feedback
+  let currentQuestionIndex = 0;
 
-  // Timer: Countdown from 10 minutes (600 seconds)
-  let timeLeft = 600;
+  // Timer
+  let timeLeft = 600; // 10 min
   const timerBox = document.getElementById("timer-box");
+  const timerInterval = setInterval(updateTimer, 1000);
 
   function updateTimer() {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
     timerBox.textContent = `Time Left: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-    // Color transitions (green > yellow > red)
+    // Color transitions
     if (timeLeft > 300) {
       timerBox.style.background = "#4caf50";
       timerBox.style.color = "#fff";
@@ -70,217 +72,188 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     timeLeft--;
   }
-  const timerInterval = setInterval(updateTimer, 1000);
 
-  // Generate Quiz Cards (Center Section)
-  const quizCardsContainer = document.getElementById("quiz-cards");
-  questions.forEach(q => {
-    const card = document.createElement("div");
-    card.className = "question-card";
-    card.id = `q${q.id}`;
+  // DOM Elements
+  const questionInfo = document.getElementById("question-info");
+  const questionText = document.getElementById("question-text");
+  const optionsContainer = document.getElementById("options-container");
+  const progressBar = document.getElementById("progress-bar");
+  const attemptedSpan = document.getElementById("attempted");
+  const markedSpan = document.getElementById("marked");
+  const attemptedMarkedSpan = document.getElementById("attempted-marked");
+  const notVisitedSpan = document.getElementById("not-visited");
+  const submitBtn = document.getElementById("submit-btn");
+  const resultsContainer = document.getElementById("results-container");
+  const scoreText = document.getElementById("score-text");
+  const resultsQnumContainer = document.getElementById("results-qnum-container");
 
-    let optionsHtml = "";
-    for (let key in q.options) {
-      optionsHtml += `
-        <button class="option" data-qid="${q.id}" data-option="${key}">
-          <strong>${key}.</strong> ${q.options[key]}
-        </button>
-      `;
-    }
+  // Prev/Next Buttons
+  const prevBtn = document.getElementById("prev-btn");
+  const nextBtn = document.getElementById("next-btn");
 
-    card.innerHTML = `
-      <h3>${q.question}</h3>
-      <div class="options">
-        ${optionsHtml}
-      </div>
-    `;
-    quizCardsContainer.appendChild(card);
-  });
+  // Initialize stats
+  document.getElementById("total-qs").textContent = totalQuestions;
+  updateStats();
+  renderQuestion(currentQuestionIndex);
 
-  // Attach event listeners to option buttons
-  function attachOptionListeners() {
-    document.querySelectorAll(".option").forEach(btn => {
-      btn.addEventListener("click", function() {
-        const qid = this.getAttribute("data-qid");
-        const selectedOption = this.getAttribute("data-option");
-
-        // For practice mode: If question is locked, do nothing
-        if (mode === "practice" && lockedQuestions[qid]) {
-          return;
-        }
-
-        // Deselect other options for same question
-        const siblings = this.parentElement.querySelectorAll(".option");
-        siblings.forEach(sib => {
-          sib.classList.remove("selected");
-          // If practice mode immediate feedback was applied, revert background if needed
-          if (mode === "practice") {
-            sib.style.background = "#ececec";
-          }
-        });
-
-        this.classList.add("selected");
-        answers[qid] = selectedOption;
-        updateStats();
-
-        // Practice mode => lock after first selection + show immediate feedback
-        if (mode === "practice") {
-          lockedQuestions[qid] = true; // lock this question
-          const correct = questions.find(q => q.id == qid).answer === selectedOption;
-          if (correct) {
-            this.style.background = "#8bc34a";
-          } else {
-            this.style.background = "#f44336";
-          }
-
-          // Disable all options for that question
-          siblings.forEach(sib => {
-            sib.disabled = true;
-          });
-        }
-      });
-    });
-  }
-  attachOptionListeners();
-
-  // Update Statistics in Right Sidebar
-  function updateStats() {
-    const attempted = Object.keys(answers).length;
-    document.getElementById("attempted").textContent = attempted;
-    document.getElementById("marked").textContent = attempted;
-    document.getElementById("attempted-marked").textContent = attempted;
-    document.getElementById("not-visited").textContent = totalQuestions - attempted;
-    updateProgressBar();
-  }
-  function updateProgressBar() {
-    const progressPercent = (Object.keys(answers).length / totalQuestions) * 100;
-    // The #progress-bar *container* is static; we’ll adjust its background size:
-    document.getElementById("progress-bar").style.width = progressPercent + "%";
-  }
-
-  // Generate Right Sidebar Question Navigation Buttons
+  // Sidebar Question Buttons
   const qnumContainer = document.getElementById("qnum-container");
-  questions.forEach(q => {
+  let questionNavButtons = [];
+  questions.forEach((q, index) => {
     const btn = document.createElement("button");
     btn.className = "qnum-btn";
     btn.textContent = q.id;
     btn.addEventListener("click", () => {
-      document.getElementById(`q${q.id}`).scrollIntoView({ behavior: "smooth" });
+      currentQuestionIndex = index;
+      renderQuestion(currentQuestionIndex);
     });
     qnumContainer.appendChild(btn);
+    questionNavButtons.push(btn);
   });
 
-  // Sticky Top Bar Navigation Buttons (< and >)
-  const prevBtn = document.getElementById("prev-btn");
-  const nextBtn = document.getElementById("next-btn");
-
-  let currentQuestionIndex = 0; // track which question is "in view"
-
+  // Prev/Next Handlers
   prevBtn.addEventListener("click", () => {
     if (currentQuestionIndex > 0) {
       currentQuestionIndex--;
-      document.getElementById(`q${questions[currentQuestionIndex].id}`)
-        .scrollIntoView({ behavior: "smooth" });
+      renderQuestion(currentQuestionIndex);
     }
   });
-
   nextBtn.addEventListener("click", () => {
     if (currentQuestionIndex < totalQuestions - 1) {
       currentQuestionIndex++;
-      document.getElementById(`q${questions[currentQuestionIndex].id}`)
-        .scrollIntoView({ behavior: "smooth" });
+      renderQuestion(currentQuestionIndex);
     }
   });
 
-  // IntersectionObserver to update current question in sticky bar
-  const observerOptions = { threshold: 0.5 };
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const qid = entry.target.id.replace("q", "");
-        currentQuestionIndex = questions.findIndex(q => q.id == qid);
-        document.getElementById("question-info").textContent = `Question ${qid}/${totalQuestions}`;
-      }
-    });
-  }, observerOptions);
-
-  document.querySelectorAll(".question-card").forEach(card => {
-    observer.observe(card);
-  });
-
-  // Right Sidebar Toggle Functionality
+  // Sidebar Toggle
   const rightSidebar = document.getElementById("right-sidebar");
   const toggleSidebarBtn = document.getElementById("toggle-sidebar");
   toggleSidebarBtn.addEventListener("click", function() {
     if (!rightSidebar.classList.contains("collapsed")) {
       rightSidebar.classList.add("collapsed");
-      toggleSidebarBtn.textContent = ">>"; // When collapsed, show >> to expand
+      toggleSidebarBtn.textContent = ">>";
     } else {
       rightSidebar.classList.remove("collapsed");
-      toggleSidebarBtn.textContent = "<<"; // When expanded, show << to collapse
+      toggleSidebarBtn.textContent = "<<";
     }
   });
 
-  // Submit Test Functionality
-  const submitBtn = document.getElementById("submit-btn");
+  // Submit
   submitBtn.addEventListener("click", submitTest);
 
+  // Render a single question
+  function renderQuestion(index) {
+    const q = questions[index];
+    questionInfo.textContent = `Question ${q.id}/${totalQuestions}`;
+    questionText.textContent = q.question;
+    optionsContainer.innerHTML = "";
+
+    // Build options
+    for (let key in q.options) {
+      const optionBtn = document.createElement("button");
+      optionBtn.className = "option";
+      optionBtn.innerHTML = `<strong>${key}.</strong> ${q.options[key]}`;
+      optionBtn.setAttribute("data-qid", q.id);
+      optionBtn.setAttribute("data-option", key);
+
+      // Mark selected if user previously chose it
+      if (answers[q.id] === key) {
+        optionBtn.classList.add("selected");
+      }
+
+      // Practice mode locked => immediate feedback
+      if (mode === "practice" && lockedQuestions[q.id]) {
+        const correctOpt = q.answer;
+        const userOpt = answers[q.id];
+        if (key === correctOpt) {
+          optionBtn.style.background = "#8bc34a"; // green
+        } else if (key === userOpt) {
+          optionBtn.style.background = "#f44336"; // red
+        }
+        optionBtn.disabled = true;
+      } else {
+        // Click event
+        optionBtn.addEventListener("click", () => {
+          // If practice + not locked => lock after first selection
+          if (mode === "practice" && !lockedQuestions[q.id]) {
+            answers[q.id] = key;
+            lockedQuestions[q.id] = true;
+            const correct = (q.answer === key);
+
+            optionBtn.style.background = correct ? "#8bc34a" : "#f44336";
+            // disable all
+            const allOptions = optionsContainer.querySelectorAll(".option");
+            allOptions.forEach(btn => {
+              btn.disabled = true;
+              // highlight correct if user was wrong
+              if (!correct && btn.getAttribute("data-option") === q.answer) {
+                btn.style.background = "#8bc34a";
+              }
+            });
+          }
+          else if (mode === "exam") {
+            answers[q.id] = key;
+            // re-render to update selected highlight
+            renderQuestion(index);
+          }
+          updateStats();
+          // Mark question nav as answered
+          questionNavButtons[q.id - 1].classList.add("answered");
+        });
+      }
+      optionsContainer.appendChild(optionBtn);
+    }
+  }
+
+  // Update stats
+  function updateStats() {
+    const attempted = Object.keys(answers).length;
+    attemptedSpan.textContent = attempted;
+    markedSpan.textContent = attempted;
+    attemptedMarkedSpan.textContent = attempted;
+    notVisitedSpan.textContent = totalQuestions - attempted;
+    updateProgressBar();
+  }
+
+  function updateProgressBar() {
+    const progressPercent = (Object.keys(answers).length / totalQuestions) * 100;
+    progressBar.style.width = progressPercent + "%";
+  }
+
+  // Submit test
   function submitTest() {
     clearInterval(timerInterval);
 
-    // Show correct/incorrect feedback for EXAM MODE only after submission
     if (mode === "exam") {
       // Calculate score
       let score = 0;
-
       questions.forEach(q => {
-        const correctOption = q.answer;
-        const userOption = answers[q.id];
-
-        if (userOption === correctOption) {
+        if (answers[q.id] === q.answer) {
           score++;
         }
       });
+      // Lock all in exam mode
+      questions.forEach(q => { lockedQuestions[q.id] = true; });
 
-      // Highlight correct/wrong in the question cards
-      document.querySelectorAll(".option").forEach(btn => {
-        const qid = btn.getAttribute("data-qid");
-        const option = btn.getAttribute("data-option");
-        const correctOption = questions.find(q => q.id == qid).answer;
-        const userOption = answers[qid];
-
-        // If this is the correct option
-        if (option === correctOption) {
-          btn.style.background = "#8bc34a";
-        }
-        // If this option was the user's (incorrect) choice
-        else if (option === userOption) {
-          btn.style.background = "#f44336";
-        }
-
-        // Disable all options after submission
-        btn.disabled = true;
-      });
-
-      // Show results container
-      const resultsContainer = document.getElementById("results-container");
-      const scoreText = document.getElementById("score-text");
-      const resultsQnumContainer = document.getElementById("results-qnum-container");
-
-      scoreText.textContent = `You scored ${score} out of ${totalQuestions}`;
+      // Show results
       resultsContainer.classList.remove("hidden");
+      scoreText.textContent = `You scored ${score} out of ${totalQuestions}`;
+      resultsQnumContainer.innerHTML = "";
 
-      // Populate question number buttons for review
-      resultsQnumContainer.innerHTML = ""; // clear first
-      questions.forEach(q => {
+      // Create review buttons
+      questions.forEach((q, index) => {
         const reviewBtn = document.createElement("button");
         reviewBtn.className = "results-qnum-btn";
         reviewBtn.textContent = q.id;
         reviewBtn.addEventListener("click", () => {
-          document.getElementById(`q${q.id}`).scrollIntoView({ behavior: "smooth" });
+          currentQuestionIndex = index;
+          renderQuestion(currentQuestionIndex);
         });
         resultsQnumContainer.appendChild(reviewBtn);
       });
+
+      // Re-render current question to show final correct/wrong colors
+      renderQuestion(currentQuestionIndex);
     }
 
     alert("Test submitted!");

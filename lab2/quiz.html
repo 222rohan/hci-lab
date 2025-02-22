@@ -7,20 +7,10 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Top Navigation Bar -->
-  <nav id="top-nav">
-    <a href="index.html" class="nav-link">Home</a>
-    <a href="quiz.html" class="nav-link">Begin Quiz</a>
-  </nav>
-
-  <!-- Sticky Top Bar: Navigation and Timer -->
+  <!-- Sticky Top Bar: question info on left, timer on right -->
   <div id="sticky-bar">
-    <div id="nav-section">
-      <button id="prev-btn" class="nav-btn">&lt;</button>
-      <span id="question-info">Question 1/5</span>
-      <button id="next-btn" class="nav-btn">&gt;</button>
-    </div>
-    <div id="timer-box">Time Left: 10:00</div>
+    <span id="question-info">Question 1/5</span>
+    <span id="timer-box">Time Left: 10:00</span>
   </div>
 
   <!-- Thin Progress Bar -->
@@ -28,20 +18,26 @@
 
   <!-- Main Quiz Container -->
   <div class="quiz-container">
-    <!-- Left Sidebar: Mode Buttons (optional) -->
-    <div id="left-sidebar">
-      <a href="quiz.html?mode=practice" class="mode-btn">Practice Mode</a>
-      <a href="quiz.html?mode=exam" class="mode-btn">Exam Mode</a>
+    <!-- Center: Single Question Card (dynamically updated) -->
+    <div id="quiz-cards">
+      <div class="question-card" id="question-card">
+        <h3 id="question-text"></h3>
+        <div class="options" id="options-container">
+          <!-- Options rendered dynamically -->
+        </div>
+        <!-- Prev/Next arrows at bottom -->
+        <div id="nav-arrows">
+          <button id="prev-btn" class="nav-btn">&lt;</button>
+          <button id="next-btn" class="nav-btn">&gt;</button>
+        </div>
+      </div>
     </div>
 
-    <!-- Center: Quiz Cards (Questions) -->
-    <div id="quiz-cards">
-      <!-- Question cards generated dynamically by script.js -->
-    </div>
+    <!-- Toggle button always visible -->
+    <button id="toggle-sidebar"><<</button>
 
     <!-- Right Sidebar: Collapsible Navigation & Statistics -->
     <div id="right-sidebar">
-      <button id="toggle-sidebar"><<</button>
       <div id="question-nav">
         <h4>Questions</h4>
         <div id="qnum-container">
@@ -69,7 +65,11 @@
     <h2 id="score-text">You scored 0 out of 5</h2>
     <p>Click on a question number to review your answer vs. the correct answer:</p>
     <div id="results-qnum-container">
-      <!-- Populated dynamically with question numbers -->
+      <!-- Populated dynamically -->
+    </div>
+    <!-- "Try Again" link back to home page -->
+    <div>
+      <a href="index.html" class="try-again-btn">Try Again</a>
     </div>
   </div>
 

@@ -9,20 +9,7 @@ body {
   background: #f4f4f4;
 }
 
-/* Top Navigation Bar */
-#top-nav {
-  background: #4a90e2;
-  padding: 10px;
-  text-align: center;
-}
-.nav-link {
-  color: #fff;
-  text-decoration: none;
-  margin: 0 15px;
-  font-size: 1.1em;
-}
-
-/* Home Page Styles */
+/* Home Page */
 .home-container {
   text-align: center;
   padding: 40px 20px;
@@ -43,33 +30,22 @@ body {
   background: #357ab8;
 }
 
-/* Sticky Top Bar for Quiz Page */
+/* Sticky Top Bar: full width, question info on left, timer on right */
 #sticky-bar {
   position: sticky;
   top: 0;
   background: #fff;
-  width: 90%;
-  max-width: 800px;
-  margin: 10px auto;
-  padding: 10px;
+  width: 100%;
+  padding: 10px 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; 
   align-items: center;
   border-bottom: 1px solid #ddd;
   z-index: 100;
 }
-#nav-section {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.nav-btn {
-  padding: 5px 10px;
-  font-size: 1em;
-  cursor: pointer;
-}
 #question-info {
   font-size: 1em;
+  font-weight: bold;
 }
 #timer-box {
   padding: 5px 10px;
@@ -78,56 +54,38 @@ body {
   color: #fff;
 }
 
-/* Thin Progress Bar */
+/* Thin Progress Bar: full width */
 #progress-bar {
-  width: 90%;
-  max-width: 800px;
+  width: 100%;
   height: 4px;
   background: #2196f3;
-  margin: 0 auto 20px;
   border-radius: 2px;
+  margin-bottom: 20px;
 }
 
-/* Main Quiz Container Layout */
+/* Main Quiz Container: full width */
 .quiz-container {
-  width: 90%;
-  max-width: 800px;
-  margin: auto;
   display: flex;
-  gap: 20px;
+  width: 100%;
+  min-height: 400px; /* just to ensure some space */
+  position: relative;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
-/* Left Sidebar */
-#left-sidebar {
-  width: 120px;
-  text-align: center;
-}
-#left-sidebar .mode-btn {
-  display: block;
-  margin-bottom: 10px;
-  padding: 8px;
-  background: #4a90e2;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 5px;
-}
-#left-sidebar .mode-btn:hover {
-  background: #357ab8;
-}
-
-/* Center: Quiz Cards (Bigger Cards) */
+/* Center: Single Question Card */
 #quiz-cards {
   flex: 1;
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px 0;
 }
 .question-card {
   background: #fff;
   padding: 20px;
   width: 100%;
-  max-width: 600px; /* Increased width */
+  max-width: 700px;
   border-radius: 8px;
   box-shadow: 0 0 8px rgba(0,0,0,0.1);
   text-align: center;
@@ -158,25 +116,22 @@ body {
   background: #cce5ff;
 }
 
-/* Right Sidebar: Collapsible & Sticky */
-#right-sidebar {
-  width: 220px;
-  background: #fff;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 0 8px rgba(0,0,0,0.1);
-  text-align: right;
-  position: sticky;
-  top: 100px;
-  height: fit-content;
-  transition: all 0.3s ease;
+/* Prev/Next Arrows at bottom of question card */
+#nav-arrows {
+  margin-top: 20px;
 }
-#right-sidebar.collapsed {
-  width: 0;
-  padding: 0;
-  overflow: hidden;
+.nav-btn {
+  padding: 8px 12px;
+  font-size: 1em;
+  cursor: pointer;
+  margin: 0 5px;
 }
+
+/* Toggle Sidebar Button: absolutely positioned so always visible */
 #toggle-sidebar {
+  position: absolute;
+  top: 20px;
+  right: 20px;
   background: #4a90e2;
   color: #fff;
   border: none;
@@ -184,13 +139,25 @@ body {
   padding: 5px 8px;
   cursor: pointer;
   font-size: 0.9em;
-  margin-bottom: 10px;
-  float: right;
+  z-index: 200;
 }
 
-/* Question Navigation in Right Sidebar */
-#question-nav {
-  margin-top: 40px;
+/* Right Sidebar: Collapsible */
+#right-sidebar {
+  width: 220px;
+  background: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  text-align: right;
+  height: fit-content;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+}
+#right-sidebar.collapsed {
+  width: 0;
+  padding: 0;
+  overflow: hidden;
 }
 #question-nav h4 {
   margin-bottom: 8px;
@@ -214,15 +181,19 @@ body {
 .qnum-btn:hover {
   background: #dcdcdc;
 }
+/* When a question is answered, we change color to indicate completion */
+.qnum-btn.answered {
+  background: #cce5ff; /* or another color */
+}
 
-/* Statistics in Sidebar */
+/* Statistics */
 #stats {
   margin-top: 20px;
   font-size: 0.9em;
   text-align: right;
 }
 
-/* Submit Button */
+/* Submit Button at bottom */
 #submit-container {
   text-align: center;
   margin: 20px 0;
@@ -238,8 +209,7 @@ body {
 
 /* Results Container */
 #results-container {
-  width: 90%;
-  max-width: 800px;
+  width: 80%;
   margin: 20px auto;
   background: #fff;
   border-radius: 8px;
@@ -266,4 +236,16 @@ body {
 }
 .results-qnum-btn:hover {
   background: #dcdcdc;
+}
+.try-again-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #4a90e2;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+}
+.try-again-btn:hover {
+  background: #357ab8;
 }
