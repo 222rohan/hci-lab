@@ -1,32 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Interactive Quiz</title>
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiz Page</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="quiz-container">
-        <h1>Test your General Knowledge!</h1>
-        <div class="progress-bar">
-            <div class="progress" id="progress-bar"></div>
-        </div>
-        <div id="question-container">
-            <p class="question" id="question-text"></p>
-            <div class="options" id="options-container"></div>
-            <p id="immediate-feedback" class="immediate-feedback"></p>
-            <div class="nav-buttons">
-            <button id="prev-btn" class="nav-btn hidden">← Previous</button>
-            <button id="next-btn" class="nav-btn" disabled>Next →</button>
-            </div>
-        </div>
-        <div id="result-container" class="hidden">
-            <p class="score" id="score-text"></p>
-            <p class="feedback" id="feedback-text"></p>
-            <button id="restart-btn" class="restart-btn">Restart Quiz</button>
-        </div>
+  <!-- Top Navigation Bar -->
+  <nav id="top-nav">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="quiz.html" class="nav-link">Begin Quiz</a>
+  </nav>
+
+  <!-- Sticky Top Bar: Navigation and Timer -->
+  <div id="sticky-bar">
+    <div id="nav-section">
+      <button id="prev-btn" class="nav-btn">&lt;</button>
+      <span id="question-info">Question 1/5</span>
+      <button id="next-btn" class="nav-btn">&gt;</button>
     </div>
-    <script src="script.js"></script>
+    <div id="timer-box">Time Left: 10:00</div>
+  </div>
+
+  <!-- Thin Progress Bar -->
+  <div id="progress-bar"></div>
+
+  <!-- Main Quiz Container -->
+  <div class="quiz-container">
+    <!-- Left Sidebar: Mode Buttons -->
+    <div id="left-sidebar">
+      <a href="quiz.html?mode=practice" class="mode-btn">Practice Mode</a>
+      <a href="quiz.html?mode=exam" class="mode-btn">Exam Mode</a>
+    </div>
+
+    <!-- Center: Quiz Cards (Questions) -->
+    <div id="quiz-cards">
+      <!-- Question cards are generated dynamically by script.js -->
+    </div>
+
+    <!-- Right Sidebar: Collapsible Navigation & Statistics -->
+    <div id="right-sidebar">
+      <button id="toggle-sidebar"><<</button>
+      <div id="question-nav">
+        <h4>Questions</h4>
+        <div id="qnum-container">
+          <!-- Question number buttons will be generated dynamically -->
+        </div>
+      </div>
+      <div id="stats">
+        <h4>Statistics</h4>
+        <p>Total Qs: <span id="total-qs">5</span></p>
+        <p>Attempted: <span id="attempted">0</span></p>
+        <p>Marked: <span id="marked">0</span></p>
+        <p>Attempted & Marked: <span id="attempted-marked">0</span></p>
+        <p>Not Visited: <span id="not-visited">5</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Submit Button -->
+  <div id="submit-container">
+    <button id="submit-btn">Submit Test</button>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

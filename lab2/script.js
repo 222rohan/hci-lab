@@ -1,191 +1,196 @@
-const questions = [
+document.addEventListener("DOMContentLoaded", function() {
+  // Determine mode from URL parameter (default is exam mode)
+  const urlParams = new URLSearchParams(window.location.search);
+  const mode = urlParams.get("mode") || "exam";
+
+  // Quiz Data (5 questions with options labeled A, B, C, D)
+  const questions = [
     {
-      text: "Which is the largest planet in our solar system?",
-      options: ["Earth", "Mars", "Jupiter", "Saturn"],
-      correct: 2,
+      id: 1,
+      question: "What is 2 + 2?",
+      options: { A: "3", B: "4", C: "5", D: "6" },
+      answer: "B"
     },
     {
-      text: "What is the capital of France?",
-      options: ["Berlin", "Madrid", "Paris", "Lisbon"],
-      correct: 2,
+      id: 2,
+      question: "What is the capital of France?",
+      options: { A: "Berlin", B: "Madrid", C: "Paris", D: "Rome" },
+      answer: "C"
     },
     {
-      text: "Which gas do plants absorb from the atmosphere?",
-      options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
-      correct: 1,
+      id: 3,
+      question: "Which planet is known as the Red Planet?",
+      options: { A: "Venus", B: "Mars", C: "Jupiter", D: "Saturn" },
+      answer: "B"
     },
     {
-      text: "What is the square root of 64?",
-      options: ["6", "8", "10", "12"],
-      correct: 1,
+      id: 4,
+      question: "What is the boiling point of water (°C)?",
+      options: { A: "90", B: "100", C: "110", D: "120" },
+      answer: "B"
     },
     {
-      text: "Who wrote 'Hamlet'?",
-      options: ["Shakespeare", "Dickens", "Hemingway", "Tolstoy"],
-      correct: 0,
-    },
-  ];
-  
-  let currentQuestion = 0;
-  let score = 0;
-  // Array to store the user's selected answer for each question (null = unanswered)
-  const userAnswers = new Array(questions.length).fill(null);
-  
-  // DOM Elements
-  const questionText = document.getElementById("question-text");
-  const optionsContainer = document.getElementById("options-container");
-  const immediateFeedback = document.getElementById("immediate-feedback");
-  const nextButton = document.getElementById("next-btn");
-  const prevButton = document.getElementById("prev-btn");
-  const progressBar = document.getElementById("progress-bar");
-  const resultContainer = document.getElementById("result-container");
-  const scoreText = document.getElementById("score-text");
-  const feedbackText = document.getElementById("feedback-text");
-  const restartButton = document.getElementById("restart-btn");
-  
-  function loadQuestion() {
-    // If out of range, show results
-    if (currentQuestion >= questions.length) {
-      showResults();
-      return;
+      id: 5,
+      question: "What is the largest ocean on Earth?",
+      options: { A: "Atlantic", B: "Indian", C: "Arctic", D: "Pacific" },
+      answer: "D"
     }
-  
-    // Clear any immediate feedback message
-    immediateFeedback.textContent = "";
-  
-    // Update the question text and clear previous options
-    const q = questions[currentQuestion];
-    questionText.textContent = q.text;
-    optionsContainer.innerHTML = "";
-  
-    // Create option buttons
-    q.options.forEach((option, index) => {
-      const button = document.createElement("button");
-      button.classList.add("option");
-      button.textContent = option;
-  
-      // If this question was already answered, disable buttons and highlight the chosen option
-      if (userAnswers[currentQuestion] !== null) {
-        button.disabled = true;
-        if (index === userAnswers[currentQuestion]) {
-          if (index === q.correct) {
-            button.style.background = "#28a745"; // green for correct
+  ];
+
+  // State Variables
+  const totalQuestions = questions.length;
+  let answers = {};  // Store user's selected option per question
+
+  // Timer: Countdown from 10 minutes (600 seconds)
+  let timeLeft = 600;
+  const timerBox = document.getElementById("timer-box");
+  function updateTimer() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    timerBox.textContent = `Time Left: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    if (timeLeft > 300) {
+      timerBox.style.background = "#4caf50";
+      timerBox.style.color = "#fff";
+    } else if (timeLeft > 150) {
+      timerBox.style.background = "#ffeb3b";
+      timerBox.style.color = "#000";
+    } else {
+      timerBox.style.background = "#f44336";
+      timerBox.style.color = "#fff";
+    }
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      alert("Time is up! Submitting the test.");
+      submitTest();
+    }
+    timeLeft--;
+  }
+  const timerInterval = setInterval(updateTimer, 1000);
+
+  // Generate Quiz Cards (Center Section)
+  const quizCardsContainer = document.getElementById("quiz-cards");
+  questions.forEach(q => {
+    const card = document.createElement("div");
+    card.className = "question-card";
+    card.id = `q${q.id}`;
+    let optionsHtml = "";
+    for (let key in q.options) {
+      optionsHtml += `<button class="option" data-qid="${q.id}" data-option="${key}"><strong>${key}.</strong> ${q.options[key]}</button>`;
+    }
+    card.innerHTML = `<h3>${q.question}</h3><div class="options">${optionsHtml}</div>`;
+    quizCardsContainer.appendChild(card);
+  });
+
+  // Attach event listeners to option buttons
+  function attachOptionListeners() {
+    document.querySelectorAll(".option").forEach(btn => {
+      btn.addEventListener("click", function() {
+        const qid = this.getAttribute("data-qid");
+        const selectedOption = this.getAttribute("data-option");
+        // Deselect other options for same question
+        const siblings = this.parentElement.querySelectorAll(".option");
+        siblings.forEach(sib => sib.classList.remove("selected"));
+        this.classList.add("selected");
+        answers[qid] = selectedOption;
+        updateStats();
+        if (mode === "practice") {
+          const correct = questions.find(q => q.id == qid).answer === selectedOption;
+          if (correct) {
+            this.style.background = "#8bc34a";
           } else {
-            button.style.background = "#dc3545"; // red for wrong
+            this.style.background = "#f44336";
           }
         }
-      } else {
-        // Allow selection only if not answered yet
-        button.onclick = () => selectAnswer(index);
-      }
-      optionsContainer.appendChild(button);
+      });
     });
-  
-    // If already answered, show immediate feedback
-    if (userAnswers[currentQuestion] !== null) {
-      if (userAnswers[currentQuestion] === q.correct) {
-        immediateFeedback.textContent = "Correct!";
-        immediateFeedback.style.color = "#28a745";
-      } else {
-        immediateFeedback.textContent = "Wrong!";
-        immediateFeedback.style.color = "#dc3545";
-      }
-    }
-  
-    // Update the progress bar (based on current question index)
-    progressBar.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
-  
-    // Enable next button only if an answer has been selected for this question
-    nextButton.disabled = userAnswers[currentQuestion] === null;
-  
-    // Change next button text on the last question
-    if (currentQuestion === questions.length - 1) {
-      nextButton.textContent = "Finish Quiz";
-    } else {
-      nextButton.textContent = "Next →";
-    }
-  
-    // Hide previous button on first question; otherwise, show it.
-    if (currentQuestion === 0) {
-      prevButton.classList.add("hidden");
-    } else {
-      prevButton.classList.remove("hidden");
-    }
   }
-  
-  function selectAnswer(selectedIndex) {
-    // Only allow selection if not already answered
-    if (userAnswers[currentQuestion] === null) {
-      userAnswers[currentQuestion] = selectedIndex;
-      const q = questions[currentQuestion];
-  
-      // Check answer and update immediate feedback
-      if (selectedIndex === q.correct) {
-        score++;
-        immediateFeedback.textContent = "Correct!";
-        immediateFeedback.style.color = "#28a745";
-      } else {
-        immediateFeedback.textContent = "Wrong!";
-        immediateFeedback.style.color = "#dc3545";
+  attachOptionListeners();
+
+  // Update Statistics in Right Sidebar
+  function updateStats() {
+    const attempted = Object.keys(answers).length;
+    document.getElementById("attempted").textContent = attempted;
+    document.getElementById("marked").textContent = attempted;
+    document.getElementById("attempted-marked").textContent = attempted;
+    document.getElementById("not-visited").textContent = totalQuestions - attempted;
+    updateProgressBar();
+  }
+  function updateProgressBar() {
+    const progressPercent = (Object.keys(answers).length / totalQuestions) * 100;
+    document.getElementById("progress-bar").style.width = progressPercent + "%";
+  }
+
+  // Generate Right Sidebar Question Navigation Buttons
+  const qnumContainer = document.getElementById("qnum-container");
+  questions.forEach(q => {
+    const btn = document.createElement("button");
+    btn.className = "qnum-btn";
+    btn.textContent = q.id;
+    btn.addEventListener("click", () => {
+      document.getElementById(`q${q.id}`).scrollIntoView({ behavior: "smooth" });
+    });
+    qnumContainer.appendChild(btn);
+  });
+
+  // Sticky Top Bar Navigation Buttons (< and >)
+  const prevBtn = document.getElementById("prev-btn");
+  const nextBtn = document.getElementById("next-btn");
+  prevBtn.addEventListener("click", () => {
+    const current = getCurrentQuestionIndex();
+    if (current > 0) {
+      document.getElementById(`q${questions[current - 1].id}`).scrollIntoView({ behavior: "smooth" });
+    }
+  });
+  nextBtn.addEventListener("click", () => {
+    const current = getCurrentQuestionIndex();
+    if (current < totalQuestions - 1) {
+      document.getElementById(`q${questions[current + 1].id}`).scrollIntoView({ behavior: "smooth" });
+    }
+  });
+
+  // Use IntersectionObserver to update current question in sticky bar as you scroll
+  let currentQuestionIndex = 0;
+  const observerOptions = { threshold: 0.5 };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const qid = entry.target.id.replace("q", "");
+        currentQuestionIndex = questions.findIndex(q => q.id == qid);
+        document.getElementById("question-info").textContent = `Question ${qid}/${totalQuestions}`;
       }
-  
-      // Disable all option buttons and highlight the chosen answer
-      const buttons = optionsContainer.querySelectorAll("button");
-      buttons.forEach((btn, idx) => {
-        btn.disabled = true;
-        if (idx === selectedIndex) {
-          btn.style.background = selectedIndex === q.correct ? "#28a745" : "#dc3545";
+    });
+  }, observerOptions);
+  document.querySelectorAll(".question-card").forEach(card => observer.observe(card));
+  function getCurrentQuestionIndex() {
+    return currentQuestionIndex;
+  }
+
+  // Right Sidebar Toggle Functionality
+  const rightSidebar = document.getElementById("right-sidebar");
+  const toggleSidebarBtn = document.getElementById("toggle-sidebar");
+  toggleSidebarBtn.addEventListener("click", function() {
+    if (!rightSidebar.classList.contains("collapsed")) {
+      rightSidebar.classList.add("collapsed");
+      toggleSidebarBtn.textContent = ">>"; // When collapsed, show >> to expand
+    } else {
+      rightSidebar.classList.remove("collapsed");
+      toggleSidebarBtn.textContent = "<<"; // When expanded, show << to collapse
+    }
+  });
+
+  // Submit Test Functionality
+  const submitBtn = document.getElementById("submit-btn");
+  submitBtn.addEventListener("click", submitTest);
+  function submitTest() {
+    clearInterval(timerInterval);
+    if (mode === "exam") {
+      document.querySelectorAll(".option").forEach(btn => {
+        const qid = btn.getAttribute("data-qid");
+        if (questions.find(q => q.id == qid).answer === btn.getAttribute("data-option")) {
+          btn.style.background = "#8bc34a";
         }
       });
-  
-      // Enable the next button now that an answer has been chosen
-      nextButton.disabled = false;
     }
+    alert("Test submitted!");
   }
-  
-  nextButton.addEventListener("click", () => {
-    if (currentQuestion < questions.length - 1) {
-      currentQuestion++;
-      loadQuestion();
-    } else {
-      // If on the last question, finish the quiz
-      showResults();
-    }
-  });
-  
-  prevButton.addEventListener("click", () => {
-    if (currentQuestion > 0) {
-      currentQuestion--;
-      loadQuestion();
-    }
-  });
-  
-  function showResults() {
-    document.getElementById("question-container").classList.add("hidden");
-    resultContainer.classList.remove("hidden");
-    scoreText.textContent = `You scored ${score} out of ${questions.length}`;
-  
-    let feedback = "";
-    if (score === questions.length) {
-      feedback = "🎉 Excellent! You mastered this quiz!";
-    } else if (score > questions.length / 2) {
-      feedback = "👍 Good job! Keep practicing.";
-    } else {
-      feedback = "😢 Don't worry! Try again and improve!";
-    }
-    feedbackText.textContent = feedback;
-  }
-  
-  restartButton.addEventListener("click", () => {
-    // Reset values and clear previous answers
-    score = 0;
-    currentQuestion = 0;
-    for (let i = 0; i < userAnswers.length; i++) {
-      userAnswers[i] = null;
-    }
-    resultContainer.classList.add("hidden");
-    document.getElementById("question-container").classList.remove("hidden");
-    loadQuestion();
-  });
-  
-  loadQuestion();  
+});
