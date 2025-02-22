@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Interactive Quiz</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
     <div class="quiz-container">
         <h1>Test your General Knowledge!</h1>
         <div class="progress-bar">
@@ -16,7 +15,11 @@
         <div id="question-container">
             <p class="question" id="question-text"></p>
             <div class="options" id="options-container"></div>
-            <button id="next-btn" class="next-btn hidden">Next Question</button>
+            <p id="immediate-feedback" class="immediate-feedback"></p>
+            <div class="nav-buttons">
+            <button id="prev-btn" class="nav-btn hidden">← Previous</button>
+            <button id="next-btn" class="nav-btn" disabled>Next →</button>
+            </div>
         </div>
         <div id="result-container" class="hidden">
             <p class="score" id="score-text"></p>
@@ -24,7 +27,6 @@
             <button id="restart-btn" class="restart-btn">Restart Quiz</button>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
