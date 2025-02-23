@@ -80,97 +80,74 @@ export class ExamMode {
     this.elements.questionText.textContent = question.question;
     this.elements.optionsContainer.innerHTML = '';
 
-    // Update nav buttons active state
+    // Update active state for navigation buttons
     this.questionNavButtons.forEach((btn, index) => {
-      btn.classList.toggle('active', index === this.currentQuestionIndex);
+        btn.classList.toggle('active', index === this.currentQuestionIndex);
     });
 
-    // Render options
+    // Render each option
     Object.entries(question.options).forEach(([key, value]) => {
-      const optionBtn = document.createElement('button');
-      optionBtn.className = 'option';
-      optionBtn.innerHTML = `<strong>${key}.</strong> ${value}`;
+        const optionBtn = document.createElement('button');
+        optionBtn.className = 'option';
+        optionBtn.innerHTML = `<strong>${key}.</strong> ${value}`; 
 
-      if (this.testSubmitted) {
-        // After overall test submission: show final color coding
-        if (key === question.answer) {
-          optionBtn.style.backgroundColor = '#4caf50';
+        // Persist selected option color
+        if (this.answers[question.id] === key) {
+            optionBtn.style.backgroundColor = '#2196f3';  // Light blue for selected option
         }
-        if (
-          this.answers[question.id] &&
-          this.answers[question.id] !== question.answer &&
-          key === this.answers[question.id]
-        ) {
-          optionBtn.style.backgroundColor = '#f44336';
-        }
-        optionBtn.disabled = true;
-      } else {
-        if (this.lockedQuestions[question.id]) {
-          // Already submitted this question; disable changes
-          if (this.answers[question.id] === key) {
-            optionBtn.classList.add('selected');
-          }
-          optionBtn.disabled = true;
-        } else {
-          // Allow selection if not locked
-          if (this.selectedAnswers[question.id] === key) {
-            optionBtn.classList.add('selected');
-          }
-          optionBtn.addEventListener('click', () => {
-            this.selectedAnswers[question.id] = key;
-            this.renderQuestion();
-          });
-        }
-      }
-      this.elements.optionsContainer.appendChild(optionBtn);
+
+        // Click event to record answer and update UI
+        optionBtn.addEventListener('click', () => {
+            this.answers[question.id] = key; // Store selected answer
+            this.questionNavButtons[question.id - 1].classList.add('answered'); // Mark as attempted
+            
+            this.renderQuestion(); // Re-render to update colors
+        });
+
+        this.elements.optionsContainer.appendChild(optionBtn);
     });
 
-    // Show Clear/Submit buttons if question not yet locked and test not fully submitted
-    if (!this.lockedQuestions[question.id] && !this.testSubmitted) {
-      const buttonContainer = document.createElement('div');
-      buttonContainer.className = 'button-container';
+    // Show Clear and Submit buttons only if the test is not submitted
+    if (!this.testSubmitted) {
+        const buttonContainer = document.createElement('div');
+        buttonContainer.className = 'button-container';
 
-      // Clear Selection (left)
-      const clearSelectionBtn = document.createElement('button');
-      clearSelectionBtn.className = 'clear-selection-btn';
-      clearSelectionBtn.textContent = 'Clear Selection';
-      clearSelectionBtn.addEventListener('click', () => {
-        delete this.selectedAnswers[question.id];
-        this.renderQuestion();
-      });
-      buttonContainer.appendChild(clearSelectionBtn);
+        // Clear Selection button
+        const clearSelectionBtn = document.createElement('button');
+        clearSelectionBtn.className = 'clear-selection-btn';
+        clearSelectionBtn.textContent = 'Clear Selection';
+        clearSelectionBtn.addEventListener('click', () => {
+            delete this.answers[question.id];  // Remove answer
+            this.questionNavButtons[question.id - 1].classList.remove('answered'); // Remove indicator
+            this.renderQuestion(); // Re-render
+        });
+        buttonContainer.appendChild(clearSelectionBtn);
 
-      // Submit Answer (right) – auto-moves to next question
-      const submitAnswerBtn = document.createElement('button');
-      submitAnswerBtn.className = 'submit-question-btn';
-      submitAnswerBtn.textContent = 'Submit Answer';
-      submitAnswerBtn.addEventListener('click', () => {
-        if (!this.selectedAnswers[question.id]) {
-          alert('Please select an answer first!');
-          return;
-        }
-        // Lock question and store final answer
-        this.answers[question.id] = this.selectedAnswers[question.id];
-        this.lockedQuestions[question.id] = true;
-        this.questionNavButtons[question.id - 1].classList.add('answered');
-        this.stats.update(Object.keys(this.answers).length);
+        // Submit Answer button
+        const submitAnswerBtn = document.createElement('button');
+        submitAnswerBtn.className = 'submit-question-btn';
+        submitAnswerBtn.textContent = 'Submit Answer';
+        submitAnswerBtn.addEventListener('click', () => {
+            if (!this.answers[question.id]) {
+                alert('Please select an answer first!');
+                return;
+            }
+            this.questionNavButtons[question.id - 1].classList.add('answered'); // Ensure marking
+            this.stats.update(Object.keys(this.answers).length);
+            this.renderQuestion(); // Re-render
+        });
+        buttonContainer.appendChild(submitAnswerBtn);
 
-        // Automatically move to the next question (if any)
-        if (this.currentQuestionIndex < quizConfig.questions.length - 1) {
-          this.currentQuestionIndex++;
-        }
-        this.renderQuestion();
-      });
-      buttonContainer.appendChild(submitAnswerBtn);
-
-      this.elements.optionsContainer.appendChild(buttonContainer);
+        this.elements.optionsContainer.appendChild(buttonContainer);
     }
 
-    // Enable/disable prev/next buttons as needed
+    // Enable/disable navigation buttons appropriately
     this.elements.prevBtn.disabled = this.currentQuestionIndex === 0;
     this.elements.nextBtn.disabled = this.currentQuestionIndex === quizConfig.questions.length - 1;
-  }
+}
 
+  
+  
   submitTest() {
     this.timer.stop();
     this.testSubmitted = true;
