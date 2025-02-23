@@ -1,5 +1,3 @@
-// quizBase.js - Common configuration and utilities
-
 const quizConfig = {
     totalTime: 600, // 10 minutes in seconds
     questions: [

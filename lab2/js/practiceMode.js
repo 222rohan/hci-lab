@@ -1,4 +1,3 @@
-// practiceMode.js
 import { quizConfig, QuizTimer, QuizStats } from './quizBase.js';
 
 export class PracticeMode {

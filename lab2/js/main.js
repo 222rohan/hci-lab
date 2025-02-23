@@ -1,4 +1,4 @@
-// main.js
+
 import { ExamMode } from './examMode.js';
 import { PracticeMode } from './practiceMode.js';
 
