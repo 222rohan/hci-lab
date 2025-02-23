@@ -296,3 +296,17 @@ body {
 .try-again-btn:hover {
   background: #357ab8;
 }
+
+#review-question-container {
+  margin-top: 20px;
+  text-align: left;
+  max-width: 600px;
+  margin: 20px auto;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+}
+#review-options-list {
+  list-style: none;
+  padding-left: 0;
+}

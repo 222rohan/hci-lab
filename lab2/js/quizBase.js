@@ -75,6 +75,10 @@ class QuizStats {
   constructor(elements) {
     this.elements = elements;
     this.totalQuestions = quizConfig.questions.length;
+    const totalQsSpan = document.getElementById('total-qs');
+    if (totalQsSpan) {
+      totalQsSpan.textContent = this.totalQuestions;
+    }
   }
 
   update(attempted) {

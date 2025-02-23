@@ -58,13 +58,20 @@
     <button id="submit-btn">Submit Test</button>
   </div>
 
-  <!-- Results Container (shown after submission in Exam Mode) -->
+  <!-- Results Container (shown after submission) -->
   <div id="results-container" class="hidden">
     <h2 id="score-text">You scored 0 out of 5</h2>
     <p>Click on a question number to review your answer vs. the correct answer:</p>
     <div id="results-qnum-container">
-      <!-- Populated dynamically -->
+      <!-- Populated dynamically with question number buttons -->
     </div>
+
+    <!-- A container to display the question detail after clicking a question number -->
+    <div id="review-question-container" class="hidden">
+      <h3 id="review-question-text"></h3>
+      <ul id="review-options-list"></ul>
+    </div>
+
     <!-- "Try Again" link back to home page -->
     <div>
       <a href="index.html" class="try-again-btn">Try Again</a>

@@ -7,15 +7,22 @@ document.addEventListener("DOMContentLoaded", function() {
   const mode = urlParams.get("mode") || "exam";
 
   // Initialize appropriate mode
-  const quiz = mode === "exam" ? new ExamMode() : new PracticeMode();
+  let quiz;
+  if (mode === 'practice') {
+    quiz = new PracticeMode();
+  } else {
+    quiz = new ExamMode();
+  }
   quiz.renderQuestion();
 
   // Setup sidebar toggle
   const rightSidebar = document.getElementById("right-sidebar");
   const toggleSidebarBtn = document.getElementById("toggle-sidebar");
   
-  toggleSidebarBtn.addEventListener("click", function() {
-    rightSidebar.classList.toggle("collapsed");
-    toggleSidebarBtn.textContent = rightSidebar.classList.contains("collapsed") ? ">>" : "<<";
-  });
+  if (toggleSidebarBtn && rightSidebar) {
+    toggleSidebarBtn.addEventListener('click', function() {
+      rightSidebar.classList.toggle('collapsed');
+      toggleSidebarBtn.textContent = rightSidebar.classList.contains('collapsed') ? '>>' : '<<';
+    });
+  }
 });

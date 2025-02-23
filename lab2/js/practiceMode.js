@@ -1,52 +1,56 @@
+// practiceMode.js
 import { quizConfig, QuizTimer, QuizStats } from './quizBase.js';
 
 export class PracticeMode {
   constructor() {
     this.currentQuestionIndex = 0;
-    this.answers = {};
-    this.selectedAnswers = {};
-    this.lockedQuestions = {};
+    this.answers = {};          // Final answers (locked)
+    this.selectedAnswers = {};  // User’s selection (before locking)
+    this.lockedQuestions = {};  // Tracks locked questions
     this.initializeDOM();
     this.setupEventListeners();
   }
 
   initializeDOM() {
-    // Get all DOM elements
+    // Cache DOM elements from quiz.html
     this.elements = {
-      questionInfo: document.getElementById("question-info"),
-      questionText: document.getElementById("question-text"),
-      optionsContainer: document.getElementById("options-container"),
-      prevBtn: document.getElementById("prev-btn"),
-      nextBtn: document.getElementById("next-btn"),
-      submitBtn: document.getElementById("submit-btn"),
-      timerBox: document.getElementById("timer-box"),
-      resultsContainer: document.getElementById("results-container")
+      questionInfo: document.getElementById('question-info'),
+      questionText: document.getElementById('question-text'),
+      optionsContainer: document.getElementById('options-container'),
+      prevBtn: document.getElementById('prev-btn'),
+      nextBtn: document.getElementById('next-btn'),
+      submitBtn: document.getElementById('submit-btn'),
+      timerBox: document.getElementById('timer-box'),
+      resultsContainer: document.getElementById('results-container'),
+      scoreText: document.getElementById('score-text'),
+      resultsQnumContainer: document.getElementById('results-qnum-container'),
+      reviewQuestionContainer: document.getElementById('review-question-container'),
+      reviewQuestionText: document.getElementById('review-question-text'),
+      reviewOptionsList: document.getElementById('review-options-list')
     };
 
-    // Initialize stats
+    // Initialize stats (attempted / total)
     this.stats = new QuizStats({
-      attempted: document.getElementById("attempted"),
-      marked: document.getElementById("marked"),
-      attemptedMarked: document.getElementById("attempted-marked"),
-      notVisited: document.getElementById("not-visited"),
-      progressBar: document.getElementById("progress-bar")
+      attempted: document.getElementById('attempted'),
+      progressBar: document.getElementById('progress-bar')
     });
 
-    // Initialize timer
+    // Timer: in practice mode, you may use the same timer
     this.timer = new QuizTimer(this.elements.timerBox, () => this.finishPractice());
     this.timer.start();
 
-    // Create question navigation
+    // Build question navigation sidebar
     this.createQuestionNav();
   }
 
   createQuestionNav() {
-    const container = document.getElementById("qnum-container");
+    const container = document.getElementById('qnum-container');
+    container.innerHTML = '';
     this.questionNavButtons = quizConfig.questions.map((q, index) => {
-      const btn = document.createElement("button");
-      btn.className = "qnum-btn";
+      const btn = document.createElement('button');
+      btn.className = 'qnum-btn';
       btn.textContent = q.id;
-      btn.addEventListener("click", () => {
+      btn.addEventListener('click', () => {
         this.currentQuestionIndex = index;
         this.renderQuestion();
       });
@@ -56,9 +60,9 @@ export class PracticeMode {
   }
 
   setupEventListeners() {
-    this.elements.prevBtn.addEventListener("click", () => this.navigateQuestion(-1));
-    this.elements.nextBtn.addEventListener("click", () => this.navigateQuestion(1));
-    this.elements.submitBtn.addEventListener("click", () => this.finishPractice());
+    this.elements.prevBtn.addEventListener('click', () => this.navigateQuestion(-1));
+    this.elements.nextBtn.addEventListener('click', () => this.navigateQuestion(1));
+    this.elements.submitBtn.addEventListener('click', () => this.finishPractice());
   }
 
   navigateQuestion(direction) {
@@ -71,119 +75,137 @@ export class PracticeMode {
 
   renderQuestion() {
     const question = quizConfig.questions[this.currentQuestionIndex];
-    this.elements.questionInfo.textContent = `Question ${question.id}/${quizConfig.questions.length}`;
+    this.elements.questionInfo.textContent = `Question ${question.id} / ${quizConfig.questions.length}`;
     this.elements.questionText.textContent = question.question;
-    this.elements.optionsContainer.innerHTML = "";
-  
-    // Update nav buttons: add "active" class for current question
+    this.elements.optionsContainer.innerHTML = '';
+
+    // Update active state on nav buttons
     this.questionNavButtons.forEach((btn, index) => {
-      btn.classList.toggle("active", index === this.currentQuestionIndex);
+      btn.classList.toggle('active', index === this.currentQuestionIndex);
     });
-  
+
     // Render options
     Object.entries(question.options).forEach(([key, value]) => {
-      const optionBtn = document.createElement("button");
-      optionBtn.className = "option";
+      const optionBtn = document.createElement('button');
+      optionBtn.className = 'option';
       optionBtn.innerHTML = `<strong>${key}.</strong> ${value}`;
-  
+
       if (this.lockedQuestions[question.id]) {
+        // Once locked, show immediate feedback
         if (key === question.answer) {
-          optionBtn.style.backgroundColor = "#4caf50";
+          optionBtn.style.backgroundColor = '#4caf50';
         } else if (key === this.answers[question.id]) {
-          optionBtn.style.backgroundColor = "#f44336";
+          optionBtn.style.backgroundColor = '#f44336';
         }
         optionBtn.disabled = true;
       } else {
+        // Not locked: allow user selection
         if (this.selectedAnswers[question.id] === key) {
-          optionBtn.classList.add("selected");
+          optionBtn.classList.add('selected');
         }
-        optionBtn.addEventListener("click", () => {
+        optionBtn.addEventListener('click', () => {
           this.selectedAnswers[question.id] = key;
           this.renderQuestion();
         });
       }
       this.elements.optionsContainer.appendChild(optionBtn);
     });
-  
-    // If the question is not locked, show the action buttons
+
+    // Show Clear/Submit buttons if question not locked
     if (!this.lockedQuestions[question.id]) {
-      const buttonContainer = document.createElement("div");
-      buttonContainer.className = "button-container";
-  
-      // Clear Selection button (left)
-      const clearSelectionBtn = document.createElement("button");
-      clearSelectionBtn.className = "clear-selection-btn";
-      clearSelectionBtn.textContent = "Clear Selection";
-      clearSelectionBtn.addEventListener("click", () => {
+      const buttonContainer = document.createElement('div');
+      buttonContainer.className = 'button-container';
+
+      // Clear Selection (left)
+      const clearSelectionBtn = document.createElement('button');
+      clearSelectionBtn.className = 'clear-selection-btn';
+      clearSelectionBtn.textContent = 'Clear Selection';
+      clearSelectionBtn.addEventListener('click', () => {
         delete this.selectedAnswers[question.id];
         this.renderQuestion();
       });
       buttonContainer.appendChild(clearSelectionBtn);
-  
-      // Submit Answer button (right)
-      const submitQuestionBtn = document.createElement("button");
-      submitQuestionBtn.className = "submit-question-btn";
-      submitQuestionBtn.textContent = "Submit Answer";
-      submitQuestionBtn.addEventListener("click", () => {
+
+      // Submit Answer (right) – in practice mode, do not auto-advance
+      const submitAnswerBtn = document.createElement('button');
+      submitAnswerBtn.className = 'submit-question-btn';
+      submitAnswerBtn.textContent = 'Submit Answer';
+      submitAnswerBtn.addEventListener('click', () => {
         if (!this.selectedAnswers[question.id]) {
-          alert("Please select an answer first!");
+          alert('Please select an answer first!');
           return;
         }
+        // Lock question and store final answer
         this.answers[question.id] = this.selectedAnswers[question.id];
         this.lockedQuestions[question.id] = true;
-        // Immediately update the nav button color
-        if (this.selectedAnswers[question.id] === question.answer) {
-          this.questionNavButtons[question.id - 1].classList.add("correct");
+        if (this.answers[question.id] === question.answer) {
+          this.questionNavButtons[question.id - 1].classList.add('correct');
         } else {
-          this.questionNavButtons[question.id - 1].classList.add("wrong");
+          this.questionNavButtons[question.id - 1].classList.add('wrong');
         }
         this.stats.update(Object.keys(this.answers).length);
         this.renderQuestion();
       });
-      buttonContainer.appendChild(submitQuestionBtn);
-  
+      buttonContainer.appendChild(submitAnswerBtn);
+
       this.elements.optionsContainer.appendChild(buttonContainer);
     }
-  }  
+
+    // Enable/disable prev/next buttons as appropriate
+    this.elements.prevBtn.disabled = this.currentQuestionIndex === 0;
+    this.elements.nextBtn.disabled = this.currentQuestionIndex === quizConfig.questions.length - 1;
+  }
 
   finishPractice() {
     this.timer.stop();
+
+    // Calculate score
     let score = 0;
     quizConfig.questions.forEach(q => {
       if (this.answers[q.id] === q.answer) score++;
     });
 
-    const resultsBox = document.createElement('div');
-    resultsBox.style.position = 'fixed';
-    resultsBox.style.top = '50%';
-    resultsBox.style.left = '50%';
-    resultsBox.style.transform = 'translate(-50%, -50%)';
-    resultsBox.style.backgroundColor = '#f8f9fa';
-    resultsBox.style.border = '1px solid #ccc';
-    resultsBox.style.padding = '20px';
-    resultsBox.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
-    resultsBox.style.borderRadius = '8px';
-    resultsBox.style.textAlign = 'center';
+    // Hide the quiz UI
+    document.getElementById('sticky-bar').style.display = 'none';
+    document.querySelector('.quiz-container').style.display = 'none';
+    document.getElementById('submit-container').style.display = 'none';
 
-    const message = document.createElement('p');
-    message.innerText = `Practice completed! You got ${score} out of ${quizConfig.questions.length} questions correct.`;
-    resultsBox.appendChild(message);
+    // Show results container
+    this.elements.resultsContainer.classList.remove('hidden');
+    this.elements.scoreText.textContent = `You scored ${score} out of ${quizConfig.questions.length}`;
 
-    const retryButton = document.createElement('button');
-    retryButton.innerText = 'Retry';
-    retryButton.style.backgroundColor = '#007bff';
-    retryButton.style.color = '#fff';
-    retryButton.style.border = 'none';
-    retryButton.style.padding = '10px 20px';
-    retryButton.style.borderRadius = '5px';
-    retryButton.style.cursor = 'pointer';
-    retryButton.style.marginTop = '10px';
-
-    retryButton.addEventListener('click', () => {
-      window.location.href = 'index.html';
+    // Build question nav in results area for review
+    this.elements.resultsQnumContainer.innerHTML = '';
+    quizConfig.questions.forEach((q, index) => {
+      const btn = document.createElement('button');
+      btn.className = 'results-qnum-btn';
+      btn.textContent = q.id;
+      btn.addEventListener('click', () => {
+        this.renderReviewQuestion(index);
+      });
+      this.elements.resultsQnumContainer.appendChild(btn);
     });
+  }
 
-    resultsBox.appendChild(retryButton);
-    document.body.appendChild(resultsBox);
+  renderReviewQuestion(index) {
+    const question = quizConfig.questions[index];
+    this.elements.reviewQuestionContainer.classList.remove('hidden');
+    this.elements.reviewQuestionText.textContent = `Question ${question.id}: ${question.question}`;
+    this.elements.reviewOptionsList.innerHTML = '';
+
+    const userAnswer = this.answers[question.id] || '(none)';
+    Object.entries(question.options).forEach(([key, value]) => {
+      const li = document.createElement('li');
+      li.textContent = `${key}. ${value}`;
+      if (key === question.answer) {
+        li.style.color = 'green';
+        li.style.fontWeight = 'bold';
+      }
+      if (key === userAnswer && userAnswer !== question.answer) {
+        li.style.color = 'red';
+        li.style.fontWeight = 'bold';
+      }
+      this.elements.reviewOptionsList.appendChild(li);
+    });
   }
 }
