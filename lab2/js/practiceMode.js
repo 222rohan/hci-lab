@@ -114,7 +114,6 @@ export class PracticeMode {
         if (this.answers[question.id] === key) {
           // Highlight the currently selected option in blue
           optionBtn.style.backgroundColor = '#2196f3';
-          optionBtn.style.color = '#fff';
         }
   
         // Clicking an option just marks it as "selected" (not locked yet)
