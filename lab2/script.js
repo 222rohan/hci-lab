@@ -396,3 +396,4 @@ restartButton.addEventListener("click", () => {
   resultContainer.classList.add("hidden");
   modeSelectionDiv.classList.remove("hidden");
 });
+
