@@ -39,7 +39,7 @@ body {
   margin: 0 20px;
   padding: 10px 30%;
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-evenly; 
   align-items: center;
   border-bottom: 1px solid #ddd;
   z-index: 100;

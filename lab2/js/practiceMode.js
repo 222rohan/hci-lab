@@ -90,79 +90,60 @@ export class PracticeMode {
       optionBtn.className = 'option';
       optionBtn.innerHTML = `<strong>${key}.</strong> ${value}`;
 
-      // If the question is already locked => show immediate feedback
-      if (this.lockedQuestions[question.id]) {
-        // Always highlight the correct answer in green
+      // Handle click on option
+      optionBtn.addEventListener('click', () => {
+        // Store the selected answer
+        this.selectedAnswers[question.id] = key;
+        this.answers[question.id] = key;
+        this.lockedQuestions[question.id] = true;
+
+        // Update the question nav button in sidebar
         if (key === question.answer) {
-          optionBtn.style.backgroundColor = '#4caf50'; // correct
+          this.questionNavButtons[this.currentQuestionIndex].classList.add('correct');
+        } else {
+          this.questionNavButtons[this.currentQuestionIndex].classList.add('wrong');
         }
-        // If user chose a wrong answer, highlight that choice in red
-        if (this.answers[question.id] === key && key !== question.answer) {
-          optionBtn.style.backgroundColor = '#f44336'; // user's incorrect
-        }
-        // Disable further changes
-        optionBtn.disabled = true;
-      } else {
-        // Not locked => user can select
-        if (this.selectedAnswers[question.id] === key) {
-          // Just highlight the user's selection (light color)
-          optionBtn.classList.add('selected');
-        }
-        // On click, store selection but don't finalize yet
-        optionBtn.addEventListener('click', () => {
-          this.selectedAnswers[question.id] = key;
-          this.renderQuestion();
+
+        // Show feedback for all options immediately
+        const allOptions = this.elements.optionsContainer.querySelectorAll('.option');
+        allOptions.forEach((opt, index) => {
+          const optKey = Object.keys(question.options)[index];
+          
+          // Show correct answer in green
+          if (optKey === question.answer) {
+            opt.style.backgroundColor = '#4caf50';
+          }
+          
+          // Show selected wrong answer in red
+          if (optKey === key && key !== question.answer) {
+            opt.style.backgroundColor = '#f44336';
+          }
+          
+          // Disable all options
+          opt.disabled = true;
         });
+
+        // Update stats
+        this.stats.update(Object.keys(this.answers).length);
+      });
+
+      // If question was previously answered, show the colors
+      if (this.lockedQuestions[question.id]) {
+        // Show correct answer in green
+        if (key === question.answer) {
+          optionBtn.style.backgroundColor = '#4caf50';
+        }
+        // Show wrong selection in red
+        if (this.answers[question.id] === key && key !== question.answer) {
+          optionBtn.style.backgroundColor = '#f44336';
+        }
+        optionBtn.disabled = true;
       }
 
       this.elements.optionsContainer.appendChild(optionBtn);
     });
 
-    // If question is not locked, show "Clear Selection" + "Submit Answer"
-    if (!this.lockedQuestions[question.id]) {
-      const buttonContainer = document.createElement('div');
-      buttonContainer.className = 'button-container';
-
-      // Clear Selection (left)
-      const clearSelectionBtn = document.createElement('button');
-      clearSelectionBtn.className = 'clear-selection-btn';
-      clearSelectionBtn.textContent = 'Clear Selection';
-      clearSelectionBtn.addEventListener('click', () => {
-        delete this.selectedAnswers[question.id];
-        this.renderQuestion();
-      });
-      buttonContainer.appendChild(clearSelectionBtn);
-
-      // Submit Answer (right)
-      const submitAnswerBtn = document.createElement('button');
-      submitAnswerBtn.className = 'submit-question-btn';
-      submitAnswerBtn.textContent = 'Submit Answer';
-      submitAnswerBtn.addEventListener('click', () => {
-        if (!this.selectedAnswers[question.id]) {
-          alert('Please select an answer first!');
-          return;
-        }
-        // Lock the question
-        this.answers[question.id] = this.selectedAnswers[question.id];
-        this.lockedQuestions[question.id] = true;
-
-        // Also color the nav button (sidebar) green or red
-        if (this.answers[question.id] === question.answer) {
-          this.questionNavButtons[question.id - 1].classList.add('correct');
-        } else {
-          this.questionNavButtons[question.id - 1].classList.add('wrong');
-        }
-
-        // Update stats, re-render so we see green/red in the question
-        this.stats.update(Object.keys(this.answers).length);
-        this.renderQuestion();
-      });
-      buttonContainer.appendChild(submitAnswerBtn);
-
-      this.elements.optionsContainer.appendChild(buttonContainer);
-    }
-
-    // Enable/disable prev/next arrow as needed
+    // Navigation buttons
     this.elements.prevBtn.disabled = (this.currentQuestionIndex === 0);
     this.elements.nextBtn.disabled = (this.currentQuestionIndex === quizConfig.questions.length - 1);
   }
