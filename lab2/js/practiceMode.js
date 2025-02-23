@@ -78,75 +78,105 @@ export class PracticeMode {
     this.elements.questionInfo.textContent = `Question ${question.id} / ${quizConfig.questions.length}`;
     this.elements.questionText.textContent = question.question;
     this.elements.optionsContainer.innerHTML = '';
-
-    // Highlight the current question button in the sidebar
+  
+    // Update which sidebar question button is "active"
     this.questionNavButtons.forEach((btn, index) => {
       btn.classList.toggle('active', index === this.currentQuestionIndex);
     });
-
-    // Render each option as a button
+  
+    // Render each option
     Object.entries(question.options).forEach(([key, value]) => {
       const optionBtn = document.createElement('button');
       optionBtn.className = 'option';
       optionBtn.innerHTML = `<strong>${key}.</strong> ${value}`;
-
-      // Handle click on option
-      optionBtn.addEventListener('click', () => {
-        // Store the selected answer
-        this.selectedAnswers[question.id] = key;
-        this.answers[question.id] = key;
+  
+      // If question is locked (i.e., user clicked "Submit Answer"), show final feedback
+      if (this.lockedQuestions[question.id]) {
+        const userAnswer = this.answers[question.id];
+        const isCorrect = (key === question.answer);
+        const isUserChoice = (key === userAnswer);
+  
+        // Highlight correct answer in green
+        if (isCorrect) {
+          optionBtn.style.backgroundColor = '#4caf50';
+          optionBtn.style.color = '#fff';
+        }
+        // If user was wrong and this was their choice, highlight in red
+        if (isUserChoice && !isCorrect) {
+          optionBtn.style.backgroundColor = '#f44336';
+          optionBtn.style.color = '#fff';
+        }
+        optionBtn.disabled = true;
+  
+      } else {
+        // Question not yet locked; user can freely select
+        if (this.answers[question.id] === key) {
+          // Highlight currently selected option in blue
+          optionBtn.style.backgroundColor = '#2196f3';
+          optionBtn.style.color = '#fff';
+        }
+  
+        // When user clicks an option, just mark it as selected (not final)
+        optionBtn.addEventListener('click', () => {
+          this.answers[question.id] = key;
+          this.selectedAnswers[question.id] = key;
+          this.renderQuestion();
+        });
+      }
+  
+      this.elements.optionsContainer.appendChild(optionBtn);
+    });
+  
+    // If question is not locked, show Clear Selection & Submit Answer buttons
+    if (!this.lockedQuestions[question.id]) {
+      const buttonContainer = document.createElement('div');
+      buttonContainer.className = 'button-container';
+  
+      // Clear Selection
+      const clearSelectionBtn = document.createElement('button');
+      clearSelectionBtn.className = 'clear-selection-btn';
+      clearSelectionBtn.textContent = 'Clear Selection';
+      clearSelectionBtn.addEventListener('click', () => {
+        delete this.answers[question.id];
+        delete this.selectedAnswers[question.id];
+        this.renderQuestion();
+      });
+      buttonContainer.appendChild(clearSelectionBtn);
+  
+      // Submit Answer
+      const submitAnswerBtn = document.createElement('button');
+      submitAnswerBtn.className = 'submit-question-btn';
+      submitAnswerBtn.textContent = 'Submit Answer';
+      submitAnswerBtn.addEventListener('click', () => {
+        if (!this.answers[question.id]) {
+          alert('Please select an answer first!');
+          return;
+        }
+        // Lock the question and show final feedback
         this.lockedQuestions[question.id] = true;
-
-        // Update the question nav button in sidebar
-        if (key === question.answer) {
+  
+        // Update the sidebar button color (green if correct, red if wrong)
+        if (this.answers[question.id] === question.answer) {
           this.questionNavButtons[this.currentQuestionIndex].classList.add('correct');
         } else {
           this.questionNavButtons[this.currentQuestionIndex].classList.add('wrong');
         }
-
-        // Show feedback for all options immediately
-        const allOptions = this.elements.optionsContainer.querySelectorAll('.option');
-        allOptions.forEach((opt, index) => {
-          const optKey = Object.keys(question.options)[index];
-          
-          // Show correct answer in green
-          if (optKey === question.answer) {
-            opt.style.backgroundColor = '#4caf50';
-          }
-          
-          // Show selected wrong answer in red
-          if (optKey === key && key !== question.answer) {
-            opt.style.backgroundColor = '#f44336';
-          }
-          
-          // Disable all options
-          opt.disabled = true;
-        });
-
-        // Update stats
-        this.stats.update(Object.keys(this.answers).length);
+  
+        // Update stats (e.g., how many are locked)
+        this.stats.update(Object.keys(this.lockedQuestions).length);
+  
+        // Re-render to show correct/wrong feedback
+        this.renderQuestion();
       });
-
-      // If question was previously answered, show the colors
-      if (this.lockedQuestions[question.id]) {
-        // Show correct answer in green
-        if (key === question.answer) {
-          optionBtn.style.backgroundColor = '#4caf50';
-        }
-        // Show wrong selection in red
-        if (this.answers[question.id] === key && key !== question.answer) {
-          optionBtn.style.backgroundColor = '#f44336';
-        }
-        optionBtn.disabled = true;
-      }
-
-      this.elements.optionsContainer.appendChild(optionBtn);
-    });
-
-    // Navigation buttons
+      buttonContainer.appendChild(submitAnswerBtn);
+  
+      this.elements.optionsContainer.appendChild(buttonContainer);
+    }
+  
+    // Enable or disable Prev/Next
     this.elements.prevBtn.disabled = (this.currentQuestionIndex === 0);
     this.elements.nextBtn.disabled = (this.currentQuestionIndex === quizConfig.questions.length - 1);
-  }
+  }  
 
   finishPractice() {
     // Called when "Submit Test" is clicked or time runs out

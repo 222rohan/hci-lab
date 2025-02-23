@@ -145,8 +145,6 @@ export class ExamMode {
     this.elements.prevBtn.disabled = this.currentQuestionIndex === 0;
     this.elements.nextBtn.disabled = this.currentQuestionIndex === quizConfig.questions.length - 1;
 }
-
-  
   
   submitTest() {
     this.timer.stop();
