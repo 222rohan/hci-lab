@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
   if (toggleSidebarBtn && rightSidebar) {
     toggleSidebarBtn.addEventListener('click', function() {
       rightSidebar.classList.toggle('collapsed');
-      toggleSidebarBtn.textContent = rightSidebar.classList.contains('collapsed') ? '>>' : '<<';
+      toggleSidebarBtn.textContent = rightSidebar.classList.contains('collapsed') ? '<<' : '>>';
     });
   }
 });

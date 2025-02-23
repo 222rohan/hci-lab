@@ -35,9 +35,9 @@ body {
   position: sticky;
   top: 0;
   background: #fff;
-  width: calc(100% - 40px);
+  width: 100%;
   margin: 0 20px;
-  padding: 10px 20px;
+  padding: 10px 30%;
   display: flex;
   justify-content: space-between; 
   align-items: center;
@@ -68,10 +68,12 @@ body {
 /* Main Quiz Container: full width */
 .quiz-container {
   display: flex;
-  gap: 20px;
-  padding: 20px;
-  justify-content: center;
+  justify-content: flex-start;  /* align items starting at left */
   align-items: flex-start;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  /* Remove any gap property to avoid extra space */
 }
 
 /* Center: Single Question Card */
@@ -167,7 +169,8 @@ body {
 
 /* Toggle Sidebar Button: absolutely positioned so always visible */
 #toggle-sidebar {
-  position: absolute;
+  margin-top: 20px;
+  position: sticky;
   top: 20px;
   right: 20px;
   background: #4a90e2;
@@ -182,13 +185,14 @@ body {
 
 /* Right Sidebar: Collapsible */
 #right-sidebar {
+  
   width: 220px;
   background: #fff;
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 0 8px rgba(0,0,0,0.1);
   text-align: right;
-  margin-top: 0;
+  margin-top: 20px;
   transition: all 0.3s ease;
 }
 #right-sidebar.collapsed {
