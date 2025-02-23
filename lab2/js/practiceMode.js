@@ -176,6 +176,10 @@ export class PracticeMode {
     // Enable or disable navigation arrows appropriately
     this.elements.prevBtn.disabled = (this.currentQuestionIndex === 0);
     this.elements.nextBtn.disabled = (this.currentQuestionIndex === quizConfig.questions.length - 1);
+
+    const totalQuestions = quizConfig.questions.length;
+    const questionProgress = ((this.currentQuestionIndex + 1) / totalQuestions) * 100;
+    document.getElementById('progress-bar').style.width = questionProgress + '%';
   }  
 
   finishPractice() {
