@@ -173,6 +173,15 @@ export class ExamMode {
       const btn = document.createElement('button');
       btn.className = 'results-qnum-btn';
       btn.textContent = q.id;
+      
+      if (this.answers[q.id]) {
+        if (this.answers[q.id] === q.answer) {
+          btn.classList.add('correct'); // Styles defined in style.css: green background, white text
+        } 
+        else {
+          btn.classList.add('wrong');   // Styles defined in style.css: red background, white text
+        }
+      }
       btn.addEventListener('click', () => {
         this.renderReviewQuestion(index);
       });

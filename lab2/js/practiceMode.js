@@ -175,6 +175,14 @@ export class PracticeMode {
       const btn = document.createElement('button');
       btn.className = 'results-qnum-btn';
       btn.textContent = q.id;
+      
+      if (this.answers[q.id]) {
+        if (this.answers[q.id] === q.answer) {
+          btn.classList.add('correct');
+        } else {
+          btn.classList.add('wrong');
+        }
+      }
       btn.addEventListener('click', () => {
         this.renderReviewQuestion(index);
       });

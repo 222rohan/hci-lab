@@ -236,6 +236,14 @@ body {
   background: #f44336;
   color: #fff;
 }
+.results-qnum-btn.correct {
+  background: #4caf50;
+  color: #fff;
+}
+.results-qnum-btn.wrong {
+  background: #f44336;
+  color: #fff;
+}
 
 /* Statistics */
 #stats {
