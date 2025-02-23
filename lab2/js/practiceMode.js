@@ -79,7 +79,7 @@ export class PracticeMode {
     this.elements.questionText.textContent = question.question;
     this.elements.optionsContainer.innerHTML = '';
   
-    // Update which sidebar question button is "active"
+    // Mark the current question button in the sidebar as active
     this.questionNavButtons.forEach((btn, index) => {
       btn.classList.toggle('active', index === this.currentQuestionIndex);
     });
@@ -90,49 +90,50 @@ export class PracticeMode {
       optionBtn.className = 'option';
       optionBtn.innerHTML = `<strong>${key}.</strong> ${value}`;
   
-      // If question is locked (i.e., user clicked "Submit Answer"), show final feedback
+      // If question is locked (user clicked "Submit Answer"), show final feedback
       if (this.lockedQuestions[question.id]) {
         const userAnswer = this.answers[question.id];
-        const isCorrect = (key === question.answer);
-        const isUserChoice = (key === userAnswer);
+        const isCorrectOption = (key === question.answer);
+        const isUserChoice   = (key === userAnswer);
   
-        // Highlight correct answer in green
-        if (isCorrect) {
+        // Always highlight the correct answer in green
+        if (isCorrectOption) {
           optionBtn.style.backgroundColor = '#4caf50';
           optionBtn.style.color = '#fff';
         }
-        // If user was wrong and this was their choice, highlight in red
-        if (isUserChoice && !isCorrect) {
+        // If the user chose a wrong option, highlight it in red
+        if (isUserChoice && !isCorrectOption) {
           optionBtn.style.backgroundColor = '#f44336';
           optionBtn.style.color = '#fff';
         }
+        // Disable all options after submission
         optionBtn.disabled = true;
   
       } else {
-        // Question not yet locked; user can freely select
+        // Question is not locked yet, so the user can freely select
         if (this.answers[question.id] === key) {
-          // Highlight currently selected option in blue
+          // Highlight the currently selected option in blue
           optionBtn.style.backgroundColor = '#2196f3';
           optionBtn.style.color = '#fff';
         }
   
-        // When user clicks an option, just mark it as selected (not final)
+        // Clicking an option just marks it as "selected" (not locked yet)
         optionBtn.addEventListener('click', () => {
           this.answers[question.id] = key;
           this.selectedAnswers[question.id] = key;
-          this.renderQuestion();
+          this.renderQuestion(); // Re-render to highlight the new selection
         });
       }
   
       this.elements.optionsContainer.appendChild(optionBtn);
     });
   
-    // If question is not locked, show Clear Selection & Submit Answer buttons
+    // If question is not locked, show Clear & Submit buttons
     if (!this.lockedQuestions[question.id]) {
       const buttonContainer = document.createElement('div');
       buttonContainer.className = 'button-container';
   
-      // Clear Selection
+      // Clear Selection button
       const clearSelectionBtn = document.createElement('button');
       clearSelectionBtn.className = 'clear-selection-btn';
       clearSelectionBtn.textContent = 'Clear Selection';
@@ -143,7 +144,7 @@ export class PracticeMode {
       });
       buttonContainer.appendChild(clearSelectionBtn);
   
-      // Submit Answer
+      // Submit Answer button
       const submitAnswerBtn = document.createElement('button');
       submitAnswerBtn.className = 'submit-question-btn';
       submitAnswerBtn.textContent = 'Submit Answer';
@@ -152,17 +153,17 @@ export class PracticeMode {
           alert('Please select an answer first!');
           return;
         }
-        // Lock the question and show final feedback
+        // Lock the question and show feedback
         this.lockedQuestions[question.id] = true;
   
-        // Update the sidebar button color (green if correct, red if wrong)
+        // Update sidebar button color: green if correct, red if wrong
         if (this.answers[question.id] === question.answer) {
           this.questionNavButtons[this.currentQuestionIndex].classList.add('correct');
         } else {
           this.questionNavButtons[this.currentQuestionIndex].classList.add('wrong');
         }
   
-        // Update stats (e.g., how many are locked)
+        // Update stats (# of locked questions, etc.)
         this.stats.update(Object.keys(this.lockedQuestions).length);
   
         // Re-render to show correct/wrong feedback
@@ -173,7 +174,7 @@ export class PracticeMode {
       this.elements.optionsContainer.appendChild(buttonContainer);
     }
   
-    // Enable or disable Prev/Next
+    // Enable or disable navigation arrows appropriately
     this.elements.prevBtn.disabled = (this.currentQuestionIndex === 0);
     this.elements.nextBtn.disabled = (this.currentQuestionIndex === quizConfig.questions.length - 1);
   }  
