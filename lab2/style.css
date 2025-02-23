@@ -162,13 +162,13 @@ body {
 #question-nav h4 {
   margin-bottom: 8px;
   font-size: 1em;
-  text-align: left;
+  text-align: right;
 }
 #qnum-container {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
-  justify-content: flex-start;
+  justify-content: flex-end;
 }
 .qnum-btn {
   padding: 5px 8px;
@@ -190,7 +190,7 @@ body {
 #stats {
   margin-top: 20px;
   font-size: 0.9em;
-  text-align: left;
+  text-align: right;
 }
 
 /* Submit Button at bottom */
