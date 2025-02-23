@@ -79,8 +79,6 @@ class QuizStats {
 
   update(attempted) {
     this.elements.attempted.textContent = attempted;
-    this.elements.marked.textContent = attempted;
-    this.elements.attemptedMarked.textContent = attempted;
     this.elements.notVisited.textContent = this.totalQuestions - attempted;
     
     const progressPercent = (attempted / this.totalQuestions) * 100;

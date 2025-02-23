@@ -22,6 +22,7 @@ export class PracticeMode {
       timerBox: document.getElementById("timer-box"),
       resultsContainer: document.getElementById("results-container")
     };
+
     // Initialize stats
     this.stats = new QuizStats({
       attempted: document.getElementById("attempted"),
@@ -73,17 +74,18 @@ export class PracticeMode {
     this.elements.questionInfo.textContent = `Question ${question.id}/${quizConfig.questions.length}`;
     this.elements.questionText.textContent = question.question;
     this.elements.optionsContainer.innerHTML = "";
-
-    // Update navigation buttons
-    this.elements.prevBtn.disabled = this.currentQuestionIndex === 0;
-    this.elements.nextBtn.disabled = this.currentQuestionIndex === quizConfig.questions.length - 1;
-
+  
+    // Update nav buttons: add "active" class for current question
+    this.questionNavButtons.forEach((btn, index) => {
+      btn.classList.toggle("active", index === this.currentQuestionIndex);
+    });
+  
     // Render options
     Object.entries(question.options).forEach(([key, value]) => {
       const optionBtn = document.createElement("button");
       optionBtn.className = "option";
       optionBtn.innerHTML = `<strong>${key}.</strong> ${value}`;
-
+  
       if (this.lockedQuestions[question.id]) {
         if (key === question.answer) {
           optionBtn.style.backgroundColor = "#4caf50";
@@ -100,11 +102,25 @@ export class PracticeMode {
           this.renderQuestion();
         });
       }
-
       this.elements.optionsContainer.appendChild(optionBtn);
     });
-
+  
+    // If the question is not locked, show the action buttons
     if (!this.lockedQuestions[question.id]) {
+      const buttonContainer = document.createElement("div");
+      buttonContainer.className = "button-container";
+  
+      // Clear Selection button (left)
+      const clearSelectionBtn = document.createElement("button");
+      clearSelectionBtn.className = "clear-selection-btn";
+      clearSelectionBtn.textContent = "Clear Selection";
+      clearSelectionBtn.addEventListener("click", () => {
+        delete this.selectedAnswers[question.id];
+        this.renderQuestion();
+      });
+      buttonContainer.appendChild(clearSelectionBtn);
+  
+      // Submit Answer button (right)
       const submitQuestionBtn = document.createElement("button");
       submitQuestionBtn.className = "submit-question-btn";
       submitQuestionBtn.textContent = "Submit Answer";
@@ -113,26 +129,22 @@ export class PracticeMode {
           alert("Please select an answer first!");
           return;
         }
-
         this.answers[question.id] = this.selectedAnswers[question.id];
         this.lockedQuestions[question.id] = true;
-        this.questionNavButtons[question.id - 1].classList.add("answered");
+        // Immediately update the nav button color
+        if (this.selectedAnswers[question.id] === question.answer) {
+          this.questionNavButtons[question.id - 1].classList.add("correct");
+        } else {
+          this.questionNavButtons[question.id - 1].classList.add("wrong");
+        }
         this.stats.update(Object.keys(this.answers).length);
         this.renderQuestion();
       });
-      this.elements.optionsContainer.appendChild(submitQuestionBtn);
-
-      // Clear selection button
-      const clearSelectionBtn = document.createElement("button");
-      clearSelectionBtn.className = "clear-selection-btn";
-      clearSelectionBtn.textContent = "Clear Selection";
-      clearSelectionBtn.addEventListener("click", () => {
-        delete this.selectedAnswers[question.id];
-        this.renderQuestion();
-      });
-      this.elements.optionsContainer.appendChild(clearSelectionBtn);
+      buttonContainer.appendChild(submitQuestionBtn);
+  
+      this.elements.optionsContainer.appendChild(buttonContainer);
     }
-  }
+  }  
 
   finishPractice() {
     this.timer.stop();

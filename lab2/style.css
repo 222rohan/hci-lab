@@ -35,7 +35,8 @@ body {
   position: sticky;
   top: 0;
   background: #fff;
-  width: 100%;
+  width: calc(100% - 40px);
+  margin: 0 20px;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between; 
@@ -43,6 +44,7 @@ body {
   border-bottom: 1px solid #ddd;
   z-index: 100;
 }
+
 #question-info {
   font-size: 1em;
   font-weight: bold;
@@ -66,11 +68,10 @@ body {
 /* Main Quiz Container: full width */
 .quiz-container {
   display: flex;
-  width: 100%;
-  min-height: 400px; /* just to ensure some space */
-  position: relative;
-  padding: 0 20px;
-  box-sizing: border-box;
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 /* Center: Single Question Card */
@@ -130,9 +131,22 @@ body {
 /* Button container for submit and clear selection */
 .button-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   gap: 10px;
   margin-top: 20px;
+}
+.mark-review-btn {
+  padding: 5px 8px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.8em;
+  background: #ff9800;
+  color: #fff;
+}
+
+.qnum-btn.marked {
+  background: #ff9800;
 }
 
 .submit-question-btn, .clear-selection-btn {
@@ -174,9 +188,8 @@ body {
   border-radius: 8px;
   box-shadow: 0 0 8px rgba(0,0,0,0.1);
   text-align: right;
-  height: fit-content;
+  margin-top: 0;
   transition: all 0.3s ease;
-  margin-top: 20px;
 }
 #right-sidebar.collapsed {
   width: 0;
@@ -207,6 +220,17 @@ body {
 }
 .qnum-btn.answered {
   background: #cce5ff;
+}
+.qnum-btn.active {
+  border: 2px solid #000;
+}
+.qnum-btn.correct {
+  background: #4caf50;
+  color: #fff;
+}
+.qnum-btn.wrong {
+  background: #f44336;
+  color: #fff;
 }
 
 /* Statistics */
