@@ -127,30 +127,6 @@ body {
   margin: 0 5px;
 }
 
-/* Button container for submit and clear selection */
-.button-container {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.submit-question-btn, .clear-selection-btn {
-  padding: 5px 8px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.8em;
-}
-.submit-question-btn {
-  background: #4caf50;
-  color: #fff;
-}
-.clear-selection-btn {
-  background: #f44336;
-  color: #fff;
-}
-
 /* Toggle Sidebar Button: absolutely positioned so always visible */
 #toggle-sidebar {
   position: absolute;
@@ -205,8 +181,9 @@ body {
 .qnum-btn:hover {
   background: #dcdcdc;
 }
+/* When a question is answered, we change color to indicate completion */
 .qnum-btn.answered {
-  background: #cce5ff;
+  background: #cce5ff; /* or another color */
 }
 
 /* Statistics */
