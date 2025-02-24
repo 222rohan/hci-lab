@@ -6,7 +6,8 @@
 }
 body {
   font-family: Arial, sans-serif;
-  background: #f4f4f4;
+  background: linear-gradient(135deg, #99afc1, #ffffff);
+  height : 100vh;
 }
 
 /* Home Page */
@@ -36,7 +37,7 @@ body {
   top: 0;
   background: #fff;
   width: 100%;
-  margin: 0 20px;
+  margin-top: 20px;
   padding: 10px 30%;
   display: flex;
   justify-content: space-evenly; 
