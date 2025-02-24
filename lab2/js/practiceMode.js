@@ -72,7 +72,7 @@ export class PracticeMode {
       this.renderQuestion();
     }
   }
-
+  
   renderQuestion() {
     const question = quizConfig.questions[this.currentQuestionIndex];
     this.elements.questionInfo.textContent = `Question ${question.id} / ${quizConfig.questions.length}`;
@@ -84,104 +84,87 @@ export class PracticeMode {
       btn.classList.toggle('active', index === this.currentQuestionIndex);
     });
   
+    const isLocked = this.lockedQuestions[question.id];
+    
     // Render each option
     Object.entries(question.options).forEach(([key, value]) => {
       const optionBtn = document.createElement('button');
-      optionBtn.className = 'option';
       optionBtn.innerHTML = `<strong>${key}.</strong> ${value}`;
   
-      // If question is locked (user clicked "Submit Answer"), show final feedback
-      if (this.lockedQuestions[question.id]) {
-        const userAnswer = this.answers[question.id];
-        const isCorrectOption = (key === question.answer);
-        const isUserChoice   = (key === userAnswer);
+      // Base class
+      let classes = ['option'];
   
-        // Always highlight the correct answer in green
-        if (isCorrectOption) {
-          optionBtn.style.backgroundColor = '#4caf50';
-          optionBtn.style.color = '#fff';
+      if (isLocked) {
+        const isCorrectAnswer = key === question.answer;
+        const isUserChoice = key === this.answers[question.id];
+      
+        if (isCorrectAnswer) {
+          classes.push('correct-answer');
+        } else if (isUserChoice) {
+          classes.push('wrong-answer');
         }
-        // If the user chose a wrong option, highlight it in red
-        if (isUserChoice && !isCorrectOption) {
-          optionBtn.style.backgroundColor = '#f44336';
-          optionBtn.style.color = '#fff';
-        }
-        // Disable all options after submission
-        optionBtn.disabled = true;
-  
+      
+        optionBtn.disabled = true; // Lock options after submission
       } else {
-        // Question is not locked yet, so the user can freely select
-        if (this.answers[question.id] === key) {
-          // Highlight the currently selected option in blue
-          optionBtn.style.backgroundColor = '#2196f3';
+        if (key === this.selectedAnswers[question.id]) {
+          classes.push('selected'); // Highlight selected option before submission
         }
-  
-        // Clicking an option just marks it as "selected" (not locked yet)
         optionBtn.addEventListener('click', () => {
-          this.answers[question.id] = key;
           this.selectedAnswers[question.id] = key;
-          this.renderQuestion(); // Re-render to highlight the new selection
+          this.renderQuestion();
         });
       }
+      
   
+      optionBtn.className = classes.join(' ');
       this.elements.optionsContainer.appendChild(optionBtn);
     });
   
-    // If question is not locked, show Clear & Submit buttons
-    if (!this.lockedQuestions[question.id]) {
+    if (!isLocked) {
       const buttonContainer = document.createElement('div');
       buttonContainer.className = 'button-container';
   
-      // Clear Selection button
       const clearSelectionBtn = document.createElement('button');
       clearSelectionBtn.className = 'clear-selection-btn';
       clearSelectionBtn.textContent = 'Clear Selection';
       clearSelectionBtn.addEventListener('click', () => {
-        delete this.answers[question.id];
         delete this.selectedAnswers[question.id];
         this.renderQuestion();
       });
       buttonContainer.appendChild(clearSelectionBtn);
   
-      // Submit Answer button
       const submitAnswerBtn = document.createElement('button');
       submitAnswerBtn.className = 'submit-question-btn';
       submitAnswerBtn.textContent = 'Submit Answer';
       submitAnswerBtn.addEventListener('click', () => {
-        if (!this.answers[question.id]) {
+        if (!this.selectedAnswers[question.id]) {
           alert('Please select an answer first!');
           return;
         }
-        // Lock the question and show feedback
+      
+        // Lock the question and save the answer
         this.lockedQuestions[question.id] = true;
-  
-        // Update sidebar button color: green if correct, red if wrong
-        if (this.answers[question.id] === question.answer) {
-          this.questionNavButtons[this.currentQuestionIndex].classList.add('correct');
-        } else {
-          this.questionNavButtons[this.currentQuestionIndex].classList.add('wrong');
-        }
-  
-        // Update stats (# of locked questions, etc.)
-        this.stats.update(Object.keys(this.lockedQuestions).length);
-  
-        // Re-render to show correct/wrong feedback
+        this.answers[question.id] = this.selectedAnswers[question.id];
+      
+        // Update sidebar button color
+        const isCorrect = this.answers[question.id] === question.answer;
+        this.questionNavButtons[this.currentQuestionIndex].classList.add(
+          isCorrect ? 'correct' : 'wrong'
+        );
+      
+        // Re-render immediately to show green/red feedback
         this.renderQuestion();
       });
+      
       buttonContainer.appendChild(submitAnswerBtn);
   
       this.elements.optionsContainer.appendChild(buttonContainer);
     }
   
-    // Enable or disable navigation arrows appropriately
     this.elements.prevBtn.disabled = (this.currentQuestionIndex === 0);
     this.elements.nextBtn.disabled = (this.currentQuestionIndex === quizConfig.questions.length - 1);
-
-    const totalQuestions = quizConfig.questions.length;
-    const questionProgress = ((this.currentQuestionIndex + 1) / totalQuestions) * 100;
-    document.getElementById('progress-bar').style.width = questionProgress + '%';
-  }  
-
+  }
+  
   finishPractice() {
     // Called when "Submit Test" is clicked or time runs out
     this.timer.stop();
