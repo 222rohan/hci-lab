@@ -37,10 +37,10 @@ body {
   top: 0;
   background: #fff;
   width: 100%;
-  margin-top: 20px;
-  padding: 10px 30%;
+  padding: 10px 10%;
   display: flex;
-  justify-content: space-evenly; 
+  justify-content: space-between; 
+  margin-top: 20px;
   align-items: center;
   border-bottom: 1px solid #ddd;
   z-index: 100;

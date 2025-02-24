@@ -15,13 +15,29 @@ body {
 
 .home-container {
   text-align: right;
-  padding-left: 30%;
+  padding-left: 15%;
 }
 
 h1 {
   font-size: 4.5rem;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-bottom: 20px;
+  color: #2C3E50;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin-bottom: 30px;
+  color: #2C3E50;
+}
+
+.home-container h4 {
+  white-space: pre;
+  text-align: right;  
+  margin: 20px 0;
+  font-size: 1.1rem;
+  line-height: 1.4;
   color: #2C3E50;
 }
 
@@ -38,6 +54,13 @@ p {
   flex-direction: row-reverse;
   gap: 30px;
   align-items: flex-end;
+}
+
+.mode-prompt {
+  margin-bottom: 15px;      /* Reduces the space between the text and the buttons */
+  text-align: right;       /* Centers the text (adjust if you prefer right-aligned) */
+  font-size: 1.2rem;        /* Slightly larger text for prominence */
+  color: #2C3E50;           /* Use a color that complements your headings */
 }
 
 .mode-btn {
