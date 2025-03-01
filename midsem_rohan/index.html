@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelLog</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar (Frozen Menu) -->
+    <header>
+        <nav>
+            <div class="logo"><a href="/">TravelLog</a></div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/booking.html">My Trips</a></li>
+                <li><a href="#explore">Explore</a></li>
+                <li><a href="/booking.html">Trip Planner</a></li>
+                <li><a href="#community">Community</a></li>
+            </ul>
+            <div class="user-actions">
+                <a href="#signup" class="btn-signup">Sign Up</a>
+                <a href="#login" class="btn-login">Login</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Plan Your Dream Adventure</h1>
+        <p>Create personalized itineraries, discover amazing destinations, and make unforgettable memories</p>
+        <form class="search-container" action="/booking.html" method="GET">
+          <input type="text" name="location" placeholder="Where to?" id="search">
+          <div class="date-picker">
+            <input type="date" name="start" id="start-date" placeholder="Start Date">
+            <input type="date" name="end" id="end-date" placeholder="End Date">
+          </div>
+          <select name="travelers" id="travelers">
+            <option value="1">1 Traveler</option>
+            <option value="2">2 Travelers</option>
+            <option value="3">3 Travelers</option>
+            <option value="4">4+ Travelers</option>
+          </select>
+          <button type="submit" class="search-btn">Plan My Trip</button>
+        </form>
+      </section>
+      
+
+    <!-- Popular Destinations Carousel -->
+    <section class="top-destinations">
+        <h2>Top Destinations You Can't Miss</h2>
+        <div class="destination-carousel">
+            <div class="card">
+                <img src="images/paris.jpg" alt="Paris">
+                <h3>Paris</h3>
+                <p>The city of love and lights.</p>
+                <span class="destination-tag">Europe</span>
+                <button class="add-to-wishlist"><i class="fas fa-heart"></i></button>
+            </div>
+            <div class="card">
+                <img src="images/tokyo.jpg" alt="Tokyo">
+                <h3>Tokyo</h3>
+                <p>A perfect mix of tradition and technology.</p>
+                <span class="destination-tag">Asia</span>
+                <button class="add-to-wishlist"><i class="fas fa-heart"></i></button>
+            </div>
+            <div class="card">
+                <img src="images/new-york.jpg" alt="New York">
+                <h3>New York</h3>
+                <p>The city that never sleeps.</p>
+                <span class="destination-tag">North America</span>
+                <button class="add-to-wishlist"><i class="fas fa-heart"></i></button>
+            </div>
+            <div class="card">
+                <img src="images/bali.jpg" alt="Bali">
+                <h3>Bali</h3>
+                <p>Tropical paradise with rich culture.</p>
+                <span class="destination-tag">Asia</span>
+                <button class="add-to-wishlist"><i class="fas fa-heart"></i></button>
+            </div>
+            <div class="card">
+                <img src="images/cape-town.jpg" alt="Cape Town">
+                <h3>Cape Town</h3>
+                <p>Where mountains meet the ocean.</p>
+                <span class="destination-tag">Africa</span>
+                <button class="add-to-wishlist"><i class="fas fa-heart"></i></button>
+            </div>
+        </div>
+        <div class="carousel-controls">
+            <button class="prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="next"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <!-- Explore By Section -->
+    <section class="explore-by">
+        <a name="explore"></a>
+        <h2>Explore Your Way</h2>
+        
+        <!-- Explore by Continent -->
+        <div class="explore-category">
+            <h3>By Continent</h3>
+            <div class="explore-options">
+                <a href="#europe" class="explore-option">
+                    <img src="images/paris.jpg" alt="Europe">
+                    <span>Europe</span>
+                </a>
+                <a href="#asia" class="explore-option">
+                    <img src="images/tokyo.jpg" alt="Asia">
+                    <span>Asia</span>
+                </a>
+                <a href="#north-america" class="explore-option">
+                    <img src="images/new-york.jpg" alt="North America">
+                    <span>North America</span>
+                </a>
+                <a href="#south-america" class="explore-option">
+                    <img src="images/south-america.jpg" alt="South America">
+                    <span>South America</span>
+                </a>
+                <a href="#africa" class="explore-option">
+                    <img src="images/africa.jpg" alt="Africa">
+                    <span>Africa</span>
+                </a>
+                <a href="#oceania" class="explore-option">
+                    <img src="images/oceania.jpg" alt="Oceania">
+                    <span>Oceania</span>
+                </a>
+                <a href="#antarctica" class="explore-option">
+                    <img src="images/antarctica.jpeg" alt="Antarctica">
+                    <span>Antarctica</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Explore by Trip Type -->
+        <div class="explore-category">
+            <h3>By Trip Type</h3>
+            <div class="explore-options">
+                <a href="#beach" class="explore-option">
+                    <img src="images/cape-town.jpg" alt="Beach Getaways">
+                    <span>Beach</span>
+                </a>
+                <a href="#adventure" class="explore-option">
+                    <img src="images/antarctica.jpeg" alt="Adventure">
+                    <span>Adventure</span>
+                </a>
+                <a href="#culture" class="explore-option">
+                    <img src="images/culture.jpg" alt="Culture">
+                    <span>Culture</span>
+                </a>
+                <a href="#food" class="explore-option">
+                    <img src="images/food.jpg" alt="Food & Cuisine">
+                    <span>Culinary</span>
+                </a>
+                <a href="#luxury" class="explore-option">
+                    <img src="images/luxury.jpg" alt="Luxury">
+                    <span>Luxury</span>
+                </a>
+                <a href="#budget" class="explore-option">
+                    <img src="images/budget.jpg" alt="Budget">
+                    <span>Budget</span>
+                </a>
+                <a href="#family" class="explore-option">
+                    <img src="images/family.jpg" alt="Family">
+                    <span>Family</span>
+                </a>
+                <a href="#solo" class="explore-option">
+                    <img src="images/solo.jpg" alt="Solo Travel">
+                    <span>Solo</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Features Section -->
+    <section class="about-features">
+        <h2>Why Choose TravelLog?</h2>
+        <div class="feature-cards">
+            <div class="card">
+                <i class="fas fa-map-marked-alt feature-icon"></i>
+                <h3>Smart Itineraries</h3>
+                <p>AI-powered recommendations based on your preferences and travel style.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-calendar-alt feature-icon"></i>
+                <h3>Flexible Planning</h3>
+                <p>Easily adjust dates, accommodations, and activities with drag-and-drop simplicity.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-globe feature-icon"></i>
+                <h3>Worldwide Coverage</h3>
+                <p>Explore destinations across all seven continents with local insights.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-users feature-icon"></i>
+                <h3>Group Planning</h3>
+                <p>Collaborate with friends and family in real-time to plan the perfect trip together.</p>
+            </div>
+        </div>
+        <div class="stats">
+            <div class="stat-item">
+                <i class="fas fa-download"></i>
+                <p>500K+ Downloads</p>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-star"></i>
+                <p>4.8/5 Rating</p>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-comment"></i>
+                <p>50K+ Reviews</p>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-globe-americas"></i>
+                <p>120+ Countries</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Planning & Features Section -->
+    <section class="planning-features">
+        <h2>Plan Your Trip with These Features</h2>
+        <div class="planning-cards">
+            <!-- Planning Feature Card 1 -->
+            <div class="planning-card">
+                <div class="card-image">
+                    <img src="images/itinenary.png" alt="Custom Itineraries">
+                </div>
+                <div class="card-text">
+                    <h3>Custom Itineraries</h3>
+                    <p>Create trips tailored to your interests with day-by-day planning.</p>
+                </div>
+            </div>
+            <!-- Planning Feature Card 2 -->
+            <div class="planning-card">
+                <div class="card-image">
+                    <img src="images/realtime.png" alt="Real-time Updates">
+                </div>
+                <div class="card-text">
+                    <h3>Real-time Updates</h3>
+                    <p>Stay informed with live travel alerts and destination notifications.</p>
+                </div>
+            </div>
+            <!-- Planning Feature Card 3 -->
+            <div class="planning-card">
+                <div class="card-image">
+                    <img src="images/budget.jpg" alt="Budget Tracker">
+                </div>
+                <div class="card-text">
+                    <h3>Advanced Budget Tracker</h3>
+                    <p>Set trip budgets, track expenses, and get alerts when approaching limits.</p>
+                </div>
+            </div>
+            <!-- Planning Feature Card 4 -->
+            <div class="planning-card">
+                <div class="card-image">
+                    <img src="images/collab.jpg" alt="Collaborative Planning">
+                </div>
+                <div class="card-text">
+                    <h3>Collaborative Planning</h3>
+                    <p>Plan trips together with friends with shared editing features.</p>
+                </div>
+            </div>
+            <!-- Planning Feature Card 5 -->
+            <div class="planning-card">
+                <div class="card-image">
+                    <img src="images/local.jpeg" alt="Local Insights">
+                </div>
+                <div class="card-text">
+                    <h3>Local Insights</h3>
+                    <p>Discover hidden gems and authentic experiences from local experts.</p>
+                </div>
+            </div>
+            <!-- Planning Feature Card 6 -->
+            <div class="planning-card">
+                <div class="card-image">
+                    <img src="images/booking.jpg" alt="Integrated Booking">
+                </div>
+                <div class="card-text">
+                    <h3>Integrated Booking</h3>
+                    <p>Book flights, hotels & activities in one place with price comparison.</p>
+                </div>
+            </div>
+            <!-- NEW: Date Flexibility -->
+            <div class="planning-card">
+                <div class="card-image">
+                    <img src="images/calendar.jpg" alt="Date Flexibility">
+                </div>
+                <div class="card-text">
+                    <h3>Date Flexibility</h3>
+                    <p>Find better deals with flexible date search and seasonal recommendations.</p>
+                </div>
+            </div>
+            <!-- NEW: Currency Converter -->
+            <div class="planning-card">
+                <div class="card-image">
+                    <img src="images/currency.png" alt="Currency Converter">
+                </div>
+                <div class="card-text">
+                    <h3>Currency Converter</h3>
+                    <p>Built-in currency converter with real-time rates for better budgeting.</p>
+                </div>
+            </div>
+            <!-- NEW: Expense Splitting -->
+            <div class="planning-card">
+                <div class="card-image">
+                    <img src="images/split.png" alt="Expense Splitting">
+                </div>
+                <div class="card-text">
+                    <h3>Expense Splitting</h3>
+                    <p>Easily split and track group expenses during your trip.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Budget Planning Features -->
+    <section class="budget-planning">
+        <h2>Budget Planning Tools</h2>
+        <div class="budget-features">
+            <div class="budget-feature">
+                <i class="fas fa-calculator feature-icon"></i>
+                <h3>Trip Cost Estimator</h3>
+                <p>Get accurate cost estimates based on your destination, travel style, and activities.</p>
+            </div>
+            <div class="budget-feature">
+                <i class="fas fa-chart-pie feature-icon"></i>
+                <h3>Expense Categories</h3>
+                <p>Track spending across transportation, accommodation, food, activities, and more.</p>
+            </div>
+            <div class="budget-feature">
+                <i class="fas fa-hand-holding-usd feature-icon"></i>
+                <h3>Price Alerts</h3>
+                <p>Receive notifications when prices drop for your saved destinations.</p>
+            </div>
+            <div class="budget-feature">
+                <i class="fas fa-coins feature-icon"></i>
+                <h3>Cost Comparison</h3>
+                <p>Compare prices across different seasons and destinations.</p>
+            </div>
+        </div>
+        <div class="budget-demo">
+            <img src="images/budget-demo.png" alt="Budget Planner Screenshot">
+            <div class="budget-overlay">
+                <h3>Plan Trips That Fit Your Budget</h3>
+                <a href="/booking.html" class="btn-demo">Try our Trip Planner</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Reviews Section -->
+    <section class="reviews">
+        <a name="community"></a>
+        <h2>What Our Travelers Say</h2>
+        <div class="review-cards">
+            <div class="card">
+                <img src="images/user1.jpg" alt="User 1">
+                <h3>Ram Kumar</h3>
+                <p class="user-location">Karnataka, India</p>
+                <p>"TravelLog made my vacation planning completely stress-free! The budget tracker saved me from overspending in Paris."</p>
+                <div class="rating">⭐⭐⭐⭐⭐</div>
+            </div>
+            <div class="card">
+                <img src="images/user2.jpg" alt="User 2">
+                <h3>Rohan Shetty</h3>
+                <p class="user-location">Hyderabad, India</p>
+                <p>"Love the custom itineraries! The app suggested places I never would have found on my own. A must-have for any traveler."</p>
+                <div class="rating">⭐⭐⭐⭐⭐</div>
+            </div>
+            <div class="card">
+                <img src="images/user3.jpg" alt="User 3">
+                <h3>James Carter</h3>
+                <p class="user-location">Sydney, Australia</p>
+                <p>"Great app! Super easy to use and intuitive. The expense splitting feature was perfect for our group trip to Thailand."</p>
+                <div class="rating">⭐⭐⭐⭐⭐</div>
+            </div>
+            <div class="card">
+                <img src="images/user4.jpg" alt="User 4">
+                <h3>Rachana DSouza</h3>
+                <p class="user-location">New York, USA</p>
+                <p>"I love how I can save and share my trips! The collaborative planning helped my family coordinate our European vacation perfectly."</p>
+                <div class="rating">⭐⭐⭐⭐⭐</div>
+            </div>
+        </div>
+        <div class="reviews-control">
+            <button class="view-more">View More Reviews</button>
+        </div>
+    </section>
+
+    <!-- App Download Section -->
+    <section class="app-download">
+        <div class="app-info">
+            <h2>Take TravelLog Wherever You Go</h2>
+            <p>Download our mobile app to access your itineraries offline, get real-time notifications, and track your trips on the go.</p>
+            <div class="download-buttons">
+                <a href="#app-store" class="btn-download">
+                    <i class="fab fa-apple"></i> App Store
+                </a>
+                <a href="#google-play" class="btn-download">
+                    <i class="fab fa-google-play"></i> Google Play
+                </a>
+            </div>
+        </div>
+        <div class="app-screenshot">
+            <img src="images/app-screenshot.jpg" alt="TravelLog Mobile App">
+        </div>
+    </section>
+
+    <!-- Newsletter & Sign Up Section -->
+    <section class="signup">
+        <div class="signup-content">
+            <h2>Start Planning Your Dream Trip Today</h2>
+            <p>Join thousands of travelers creating unforgettable journeys with TravelLog</p>
+            <form class="signup-form">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit" class="btn-signup">Create Free Account</button>
+            </form>
+            <p class="signup-note">No credit card required. Start planning for free.</p>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h3>TravelLog</h3>
+                <p>Your journey begins here</p>                
+                <div class="footer-links">
+                    <a href="#about">About Us</a>
+                    <a href="#contact">Contact Us</a>
+                    <a href="#careers">Careers</a>
+                    <a href="#press">FAQ</a>
+                    <a href="#blog">Help</a>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+                <center><p>&copy; 2025 TravelLog. All rights reserved.</p></center>
+            </div>
+        </div>   
+    </footer>
+
+    <!-- Script tags at the end of body for better loading performance -->
+    <script src="scripts.js"></script>
+</body>
+</html>

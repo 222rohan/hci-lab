@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TravelLog - Booking</title>
+  <!-- Link to your main CSS file -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <link rel="stylesheet" href="styles.css">
+ 
+</head>
+<body>
+  <!-- Header: Same as the homepage -->
+  <header>
+    <nav>
+      <div class="logo"><a href="/">TravelLog</a></div>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="#">My Trips</a></li>
+        <li><a href="/#explore">Explore</a></li>
+        <li><a href="/booking.html">Trip Planner</a></li>
+        <li><a href="/#community">Community</a></li>
+      </ul>
+      <div class="user-actions">
+        <a href="#signup" class="btn-signup">Sign Up</a>
+        <a href="#login" class="btn-login">Login</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <section class="booking-itinerary">
+      <h1>Plan Your Trip</h1>
+      <p>Review or update your trip details and create your itinerary below:</p>
+      <form action="/confirm.html" method="post">
+        <!-- Editable Booking Details -->
+        <div class="booking-details">
+          <h2>Booking Details</h2>
+          <div class="form-group">
+            <label for="destination">Location</label>
+            <input type="text" id="destination" name="location" placeholder="Enter destination" value="New York" required>
+          </div>
+          <div class="form-group">
+            <label for="start-date">Start Date</label>
+            <input type="date" id="start-date" name="start" value="2025-06-10" required>
+          </div>
+          <div class="form-group">
+            <label for="end-date">End Date</label>
+            <input type="date" id="end-date" name="end" value="2025-06-20" required>
+          </div>
+          <div class="form-group">
+            <label for="travelers">Number of Travelers</label>
+            <input type="number" id="travelers" name="travelers" value="1" required>
+          </div>
+        </div>
+
+        <!-- Itinerary Details -->
+        <div class="itinerary-booking">
+          <h2>Create Your Itinerary</h2>
+          <div class="form-group">
+            <label for="itinerary-title">Itinerary Title</label>
+            <input type="text" id="itinerary-title" name="itinerary-title" placeholder="Enter your itinerary title" required>
+          </div>
+          <div class="form-group">
+            <label for="notes">Notes</label>
+            <textarea id="notes" name="notes" placeholder="Enter any specific requests or notes" rows="4"></textarea>
+          </div>
+        </div>
+
+        <!-- Additional Trip Details -->
+        <div class="additional-details">
+          <h2>Additional Trip Details</h2>
+          <!-- Optional: Manual input for a place to explore -->
+          <div class="form-group">
+            <label for="explore-place">Add a Place to Explore (optional)</label>
+            <input type="text" id="explore-place" placeholder="Enter a place to explore">
+            <button type="button" id="add-place-btn">Add Place</button>
+          </div>
+          <ul id="places-list"></ul>
+          <!-- Hidden input to store manually added places -->
+          <input type="hidden" name="places-to-explore" id="places-to-explore">
+        </div>
+
+        <!-- Trip Cost Estimation Section -->
+        <div class="trip-cost-estimation">
+          <h2>Select Your Trip Options</h2>
+          <!-- Explore Cards Grid (Places to Explore) -->
+          <div class="explore-grid">
+            <div class="explore-card" data-cost="5000">
+              <img src="images/place1.jpg" alt="Central Park">
+              <h3><i class="fa-solid fa-location-dot"></i> Central Park</h3>
+              <p>Cost: ₹5,000</p>
+            </div>
+            <div class="explore-card" data-cost="4000">
+              <img src="images/place2.jpg" alt="Museum Mile">
+              <h3><i class="fa-solid fa-location-dot"></i> Museum Mile</h3>
+              <p>Cost: ₹4,000</p>
+            </div>
+            <div class="explore-card" data-cost="6000">
+              <img src="images/place3.jpg" alt="Times Square">
+              <h3><i class="fa-solid fa-location-dot"></i> Times Square</h3>
+              <p>Cost: ₹6,000</p>
+            </div>
+            <div class="explore-card" data-cost="3000">
+              <img src="images/place4.jpg" alt="Brooklyn Bridge">
+              <h3><i class="fa-solid fa-location-dot"></i> Brooklyn Bridge</h3>
+              <p>Cost: ₹3,000</p>
+            </div>
+            <div class="explore-card" data-cost="4500">
+              <img src="images/place5.jpg" alt="SoHo">
+              <h3><i class="fa-solid fa-location-dot"></i> SoHo</h3>
+              <p>Cost: ₹4,500</p>
+            </div>
+            <div class="explore-card" data-cost="5500">
+              <img src="images/place6.jpg" alt="High Line">
+              <h3><i class="fa-solid fa-location-dot"></i> High Line</h3>
+              <p>Cost: ₹5,500</p>
+            </div>
+          </div>
+
+          <!-- Flight Ticket Booking Card -->
+          <div class="flight-card" data-cost-single="150000" data-cost-round="280000">
+            <h3><i class="fa-solid fa-plane"></i> Flight Ticket Booking</h3>
+            <p>Select trip type:</p>
+            <div class="flight-options">
+              <label>
+                <input type="radio" name="flight-type" value="single" checked> <b>Single Trip (₹150,000) </b>
+              </label>
+              <label>
+                <input type="radio" name="flight-type" value="round"> <b> Round Trip (₹280,000) </b>
+              </label>
+            </div>
+          </div>
+
+          <!-- Lodging Options Cards -->
+          <div class="lodging-options">
+            <h3>Lodging Options</h3>
+            <div class="option-grid">
+              <div class="option-card lodging-card" data-cost="15000">
+                <label>
+                  <input type="radio" name="lodging" value="hostel" checked>
+                  <i class="fa-solid fa-bed"></i>
+                  <span><b>Budget (₹15,000)</b></span>
+                </label>
+              </div>
+              <div class="option-card lodging-card" data-cost="45000">
+                <label>
+                  <input type="radio" name="lodging" value="airbnb">
+                  <i class="fa-solid fa-home"></i>
+                  <span><b>AirBnB (₹45,000)</b></span>
+                </label>
+              </div>
+              <div class="option-card lodging-card" data-cost="100000">
+                <label>
+                  <input type="radio" name="lodging" value="hotel">
+                  <i class="fa-solid fa-hotel"></i>
+                  <span><b>Luxury (₹100,000)</b></span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rental Car Options Cards -->
+          <div class="rental-car-options">
+            <h3>Rental Car Options</h3>
+            <div class="option-grid">
+              <div class="option-card rental-card" data-cost="10000">
+                <label>
+                  <input type="radio" name="rental-car" value="economy" checked>
+                  <i class="fa-solid fa-car"></i>
+                  <span><b>Economy (₹10,000)</b></span>
+                  <span></span>
+                </label>
+              </div>
+              <div class="option-card rental-card" data-cost="15000">
+                <label>
+                  <input type="radio" name="rental-car" value="suv">
+                  <i class="fa-solid fa-truck-monster"></i>
+                  <span><b>SUV (₹15,000)</b></span>
+                </label>
+              </div>
+              <div class="option-card rental-card" data-cost="45000">
+                <label>
+                  <input type="radio" name="rental-car" value="luxury">
+                  <i class="fa-solid fa-car-side"></i>
+                  <span><b>Limo (₹45000)</b></span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <h4>Service Fee (Inclusive of Taxes.): ₹5000</h4>
+
+          <!-- Final Estimated Budget Display -->
+          <div class="final-budget">
+            <h3>Final Estimated Budget</h3>
+            <p>₹<span id="estimate-value">0</span></p>
+            <!-- Hidden input to store final budget value -->
+            <input type="hidden" name="final-budget" id="final-budget" value="0">
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Proceed to Confirmation</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+        <div class="footer-logo">
+            <h3>TravelLog</h3>
+            <p>Your journey begins here</p>                
+            <div class="footer-links">
+                <a href="#about">About Us</a>
+                <a href="#contact">Contact Us</a>
+                <a href="#careers">Careers</a>
+                <a href="#press">FAQ</a>
+                <a href="#blog">Help</a>
+            </div>
+            
+            <div class="social-links">
+                <a href="#facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+            <center><p>&copy; 2025 TravelLog. All rights reserved.</p></center>
+        </div>
+    </div>   
+</footer>
+
+    <!-- Link to your main JavaScript file -->
+    <script src="booking.js"></script>
+</body>
+</html>
