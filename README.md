@@ -1,7 +1,7 @@
 # Human Computer Interaction
 
 ### Lab 1 : **MENTAL MODEL VIOLATIONS**
-[Shopping Cart Application](222rohan.github.io/hci-lab/lab1)
+[Shopping Cart Application](https://222rohan.github.io/hci-lab/lab1)
 - Menu bar at the bottom
 - No feedback for search bar
 - Different ‘Remove from Cart’ icon
@@ -11,7 +11,7 @@
 - Non mouse-scrollable item list
 
 ### Lab 2 : **EMPLOYING USABILITY PRINCIPLES**
-[Quiz Application](222rohan.github.io/hci-lab/lab2)
+[Quiz Application](https://222rohan.github.io/hci-lab/lab2)
 - Primality
 - Recency
 - Serial Position Effect
@@ -19,7 +19,7 @@
 - Learnability
 
 ### Mid Semester (Rohan) : **USABILITY AND DESIGN LAWS**
-[Itinenary Planner](222rohan.github.io/hci-lab/midsem_rohan)
+[Itinenary Planner](https://222rohan.github.io/hci-lab/midsem_rohan)
 - Shneiderman Design principles
 - Nielsen’s guidelines
 Classical Design Laws such as:
