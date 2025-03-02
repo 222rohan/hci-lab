@@ -1,7 +1,7 @@
 # Human Computer Interaction
 
 ### Lab 1 : **MENTAL MODEL VIOLATIONS**
-Shopping Cart Application
+[Shopping Cart Application](222rohan.github.io/hci-lab/lab1)
 - Menu bar at the bottom
 - No feedback for search bar
 - Different ‘Remove from Cart’ icon
@@ -11,9 +11,19 @@ Shopping Cart Application
 - Non mouse-scrollable item list
 
 ### Lab 2 : **EMPLOYING USABILITY PRINCIPLES**
-Quiz Application
+[Quiz Application](222rohan.github.io/hci-lab/lab2)
 - Primality
 - Recency
 - Serial Position Effect
 - Pareto Law
 - Learnability
+
+### Mid Semester (Rohan) : **USABILITY AND DESIGN LAWS**
+[Itinenary Planner](222rohan.github.io/hci-lab/midsem_rohan)
+- Shneiderman Design principles
+- Nielsen’s guidelines
+Classical Design Laws such as:
+- Law of the Vital Few, Law of Learning
+- Mental Models, Closure
+- Learnability, Flexibility, Robustness, Primality, Recency, Serial Position Effect, Inverted Pyramid
+- Asimov’s Laws
