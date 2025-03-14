@@ -1,23 +1,24 @@
-const cuisines = [
-    { name: "Italian", image: "images/italian.jpg" },
-    { name: "Mexican", image: "images/mexican.jpg" },
-    { name: "Japanese", image: "images/japanese.jpg" },
-    { name: "Indian", image: "images/indian.jpg" }
-];
+document.addEventListener("DOMContentLoaded", function() {
+    const menuItems = [
+        { name: "Indian", img: "images/indian.jpg" },
+        { name: "Italian", img: "images/italian.jpg" },
+        { name: "Japanese", img: "images/japanese.jpg" },
+        { name: "Mexican", img: "images/mexican.jpg" },
+        { name: "Thai", img: "images/thai.jpg" },
+    ];
 
-const menuContainer = document.getElementById("menu");
+    const menuContainer = document.getElementById("menu-container");
 
-function displayMenu() {
-    menuContainer.innerHTML = "";
-    cuisines.forEach(cuisine => {
-        const card = document.createElement("div");
-        card.classList.add("card");
-        card.innerHTML = `
-            <img src="${cuisine.image}" alt="${cuisine.name}" style="width:100%; border-radius:5px;">
-            <h3>${cuisine.name}</h3>
+    menuItems.forEach(item => {
+        const menuItem = document.createElement("div");
+        menuItem.classList.add("menu-item");
+
+        menuItem.innerHTML = `
+            <img src="${item.img}" alt="${item.name}">
+            <h3>${item.name}</h3>
+            <p>${item.price}</p>
         `;
-        menuContainer.appendChild(card);
-    });
-}
 
-document.getElementById("viewMenu").addEventListener("click", displayMenu);
+        menuContainer.appendChild(menuItem);
+    });
+});
