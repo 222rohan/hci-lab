@@ -1,0 +1,461 @@
+/* Modern & Sleek Design - Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+}
+
+:root {
+    --primary: #ff4757;
+    --primary-light: #ff6b81;
+    --secondary: #2f3542;
+    --gray-light: #f1f2f6;
+    --gray: #dfe4ea;
+    --white: #ffffff;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --radius: 8px;
+}
+
+body {
+    background-color: var(--gray-light);
+    color: var(--secondary);
+    line-height: 1.6;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Modern Header - Tesler's & Fitts' Law */
+header {
+    padding: 18px 0;
+    margin-bottom: 20px;
+    background-color: var(--white);
+    border-radius: 0 0 var(--radius) var(--radius);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    align-items: center;
+    padding: 0 15px;
+}
+
+nav ul li:first-child {
+    margin-right: auto;
+    font-size: 1.5rem;
+}
+
+nav ul li:first-child a {
+    color: var(--primary);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+nav ul li:nth-child(2) {
+    margin-right: auto;
+    margin-left: 30px;
+}
+
+nav ul li:nth-child(3),
+nav ul li:nth-child(4) {
+    margin-left: 25px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--secondary);
+    font-weight: 500;
+    padding: 10px;
+    border-radius: var(--radius);
+    transition: all 0.2s ease;
+}
+
+nav a:hover {
+    color: var(--primary);
+}
+
+nav ul li:nth-child(4) a {
+    background-color: var(--primary-light);
+    color: var(--white);
+    padding: 8px 16px;
+    border-radius: 50px;
+}
+
+nav ul li:nth-child(4) a:hover {
+    background-color: var(--primary);
+}
+
+/* Hero Section - Hick's Law */
+#hero {
+    text-align: center;
+    padding: 60px 0 40px;
+    margin-bottom: 30px;
+    background-color: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+#hero h2 {
+    margin-bottom: 30px;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--secondary);
+}
+
+/* Search & Location - Alignment fix */
+#search-box, #location-wrapper {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 8px;
+    padding: 14px 20px;
+    border: 1px solid var(--gray);
+    border-radius: 50px;
+    width: 300px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+#search-box:focus, #location-input:focus {
+    outline: none;
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.1);
+}
+
+#location-wrapper {
+    display: inline-flex;
+    align-items: center;
+}
+
+#location-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+    opacity: 0.6;
+}
+
+#location-input {
+    border: none;
+    background: transparent;
+    width: 100%;
+}
+
+#location-input:focus {
+    outline: none;
+}
+
+/* Cuisine Categories - Gestalt Laws */
+#cuisine-cards {
+    padding: 40px 0;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#cuisine-cards h2 {
+    margin-bottom: 30px;
+    font-weight: 600;
+    font-size: 1.8rem;
+}
+
+.cuisine-cards-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.cuisine-card {
+    width: 180px;
+    padding: 20px 15px;
+    border-radius: var(--radius);
+    background-color: var(--white);
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-bottom: 4px solid transparent;
+}
+
+.cuisine-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    border-bottom: 4px solid var(--primary);
+}
+
+.cuisine-card h3 {
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.cuisine-card a {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--primary);
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 5px 12px;
+    border-radius: 50px;
+    background-color: rgba(255, 71, 87, 0.1);
+    transition: all 0.2s ease;
+}
+
+.cuisine-card a:hover {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+/* Call to Action - Fitts' Law & Gestalt Laws */
+#call-to-action {
+    padding: 40px 25px;
+    text-align: center;
+    background-color: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 40px;
+}
+
+#call-to-action h2 {
+    margin-bottom: 30px;
+    font-weight: 600;
+    font-size: 1.8rem;
+}
+
+.offers-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.offer-card {
+    width: 280px;
+    padding: 25px 20px;
+    border-radius: var(--radius);
+    background-color: var(--gray-light);
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease;
+}
+
+.offer-card:hover {
+    transform: translateY(-5px);
+}
+
+.offer-card h3 {
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: var(--secondary);
+}
+
+.offer-card p {
+    margin-bottom: 8px;
+    color: #636e72;
+    font-size: 0.95rem;
+}
+
+.offer-card p:nth-of-type(2) {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin: 15px 0;
+}
+
+.offer-card button {
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.offer-card button:hover {
+    background-color: var(--secondary);
+    transform: scale(1.05);
+}
+
+/* Different button styles */
+.view-more-btn {
+    background-color: transparent;
+    color: var(--secondary);
+    border: 2px solid var(--gray);
+    padding: 12px 25px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 500;
+    margin-right: 15px;
+    transition: all 0.2s ease;
+}
+
+.view-more-btn:hover {
+    border-color: var(--secondary);
+    background-color: var(--secondary);
+    color: var(--white);
+}
+
+.order-now-btn {
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 12px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
+}
+
+.order-now-btn:hover {
+    background-color: var(--primary-light);
+    transform: scale(1.05);
+}
+
+/* Footer */
+footer {
+    padding: 40px 0 30px;
+    text-align: center;
+    margin-top: 40px;
+    background-color: var(--white);
+    border-radius: var(--radius) var(--radius) 0 0;
+    box-shadow: var(--shadow);
+}
+
+footer h2 {
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+footer p {
+    color: #636e72;
+    margin-bottom: 5px;
+}
+
+/* Menu Page */
+#order-mode, #filters {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 25px;
+}
+
+#order-type, #filter-cuisine {
+    padding: 10px 15px;
+    border: 1px solid var(--gray);
+    border-radius: 50px;
+    background-color: var(--white);
+    color: var(--secondary);
+    font-size: 0.95rem;
+}
+
+#order-type:focus, #filter-cuisine:focus, #search-menu:focus {
+    outline: none;
+    border-color: var(--primary-light);
+}
+
+#search-menu {
+    padding: 10px 20px;
+    border: 1px solid var(--gray);
+    border-radius: 50px;
+    width: 300px;
+}
+
+/* Menu Items - Power Law of Practice */
+.cuisine-category {
+    margin-bottom: 40px;
+    background-color: var(--white);
+    padding: 25px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.cuisine-category h2 {
+    margin-bottom: 25px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--gray-light);
+    font-weight: 600;
+    color: var(--secondary);
+}
+
+.food-items-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Updated food card with 7:10 ratio and image */
+.food-card {
+    width: 210px; /* 7 units width */
+    height: 300px; /* 10 units height */
+    border-radius: var(--radius);
+    background-color: var(--white);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;
+}
+
+.food-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.food-card-img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+
+.food-card-content {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.food-card h3 {
+    margin-bottom: 4px;
+    font-weight: 600;
+    color: var(--secondary);
+    font-size: 1rem;
+}
+
+.food-card p {
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+    color: #636e72;
+}
+
+.food-card .price {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 1.1rem;
+    margin-top: auto;
+    margin-bottom: 10px;
+}
+
+.food-card button {
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    margin-top: auto;
+}
+
+.food-card button:hover {
+    background-color: var(--secondary);
+}

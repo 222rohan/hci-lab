@@ -3,22 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurant Menu</title>
-    <link rel="stylesheet" href="style.css">
+    <title>FastBite - Home</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
+    <!-- Top Menu -->
     <header>
-        <h1>Welcome to Our Restaurant</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html"><strong>FastBite</strong></a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="signin.html">Sign In</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
     </header>
-
-    <main>
-        <h2>Our Menu</h2>
-        <div id="menu-container">
-            
+    
+    <!-- Hero Section -->
+    <section id="hero">
+        <h2>Delicious Food Delivered to Your Doorstep</h2>
+        <!-- Search and Location on same line -->
+        <div>
+            <input type="text" placeholder="Search for food..." id="search-box">
+            <div id="location-wrapper">
+                <img src="location-icon.png" alt="Location Icon" id="location-icon">
+                <input type="text" id="location-input" value="Chennai">
+            </div>
         </div>
-    </main>
-
-    <script src="script.js"></script>
+    </section>
+    
+    <!-- Cuisine Categories -->
+    <section id="cuisine-cards">
+        <h2>Explore By Cuisine</h2>
+        <div class="cuisine-cards-container">
+            <div class="cuisine-card">
+                <h3>Indian</h3>
+                <a href="menu.html#indian">Explore</a>
+            </div>
+            <div class="cuisine-card">
+                <h3>Thai</h3>
+                <a href="menu.html#thai">Explore</a>
+            </div>
+            <div class="cuisine-card">
+                <h3>Japanese</h3>
+                <a href="menu.html#japanese">Explore</a>
+            </div>
+            <div class="cuisine-card">
+                <h3>Mexican</h3>
+                <a href="menu.html#mexican">Explore</a>
+            </div>
+            <div class="cuisine-card">
+                <h3>Italian</h3>
+                <a href="menu.html#italian">Explore</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Call to Action -->
+    <section id="call-to-action">
+        <h2>Order Now & Get Exciting Discounts!</h2>
+        
+        <div class="offers-container">
+            <div class="offer-card">
+                <h3>🔥 Family Combo</h3>
+                <p>Pizza, Pasta, Garlic Bread & Drinks</p>
+                <p><b>20% OFF</b></p>
+                <button>Add to Cart</button>
+            </div>
+            <div class="offer-card">
+                <h3>🍔 Burger Feast</h3>
+                <p>2 Large Burgers + Fries + Drinks</p>
+                <p><b>Flat ₹100 OFF</b></p>
+                <button>Add to Cart</button>
+            </div>
+            <div class="offer-card">
+                <h3>🌮 Mexican Fiesta</h3>
+                <p>Tacos, Nachos, Salsa & Mojito</p>
+                <p><b>Buy 1 Get 1 Free</b></p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+        
+        <button class="view-more-btn">View More Offers</button>
+        <button class="order-now-btn">Order Now</button>
+    </section>
+    
+    <!-- Footer -->
+    <footer id="contact">
+        <h2>About FastBite</h2>
+        <p>Contact: support@fastbite.com | +1 234 567 890</p>
+        <p>&copy; 2025 FastBite. All Rights Reserved.</p>
+    </footer>
 </body>
 </html>
