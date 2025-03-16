@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastBite - Menu</title>
+    <link rel="stylesheet" href="menu-styles.css"> <!-- Assuming external CSS file -->
+</head>
+<body>
+
+    <!-- Top Menu -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo"><strong>FastBite</strong></a>
+            <ul>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="menu.html">Your Orders</a></li>
+                <li><a href="signin.html">Sign In</a></li>
+                <li class="cart-icon">
+                    <a href="cart.html">Cart</a>
+                    <!-- <span class="cart-count">3</span> -->
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="order-filters">
+        <label for="order-type">Order Type:</label>
+        <select id="order-type">
+            <option value="delivery">Delivery</option>
+            <option value="takeaway">Takeaway</option>
+        </select>
+    
+        <input type="text" id="search-menu" placeholder="Search for food..." autofocus>
+        
+        <select id="filter-cuisine">
+            <option value="all">All Cuisines</option>
+            <option value="indian">Indian</option>
+            <option value="thai">Thai</option>
+            <option value="japanese">Japanese</option>
+            <option value="mexican">Mexican</option>
+            <option value="italian">Italian</option>
+        </select>
+        
+        <!-- Quick Filter Chips -->
+        <div id="quick-filters">
+            <button class="filter-chip">Popular</button>
+            <button class="filter-chip">Vegetarian</button>
+            <button class="filter-chip">Spicy</button>
+            <button id="more-filters">More Filters ▼</button>
+        </div>
+        
+        <!-- Hidden Filters -->
+        <div id="extra-filters" class="hidden">
+            <button class="filter-chip">Gluten-Free</button>
+            <button class="filter-chip">Vegan</button>
+            <button class="filter-chip">High Protein</button>
+        </div>
+    </section>
+
+<!-- Menu Categories -->
+<section id="menu-items">
+    <div class="cuisine-category" id="indian">
+        <h2>Indian Cuisine</h2>
+        <div class="food-items-container">
+            <div class="food-card">
+                <img src="images/indian.jpg" alt="Butter Chicken" class="food-card-img">
+                <div class="food-card-content">
+                    <h3>Butter Chicken</h3>
+                    <p>Rich, creamy tomato-based curry</p>
+                    <p class="price">₹350</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="food-card">
+                <img src="images/paneer_tikka.jpg" alt="Paneer Tikka" class="food-card-img">
+                <div class="food-card-content">
+                    <h3>Paneer Tikka</h3>
+                    <p>Grilled paneer cubes with spices</p>
+                    <p class="price">₹250</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Thai Cuisine -->
+    <div class="cuisine-category" id="thai">
+        <h2>Thai Cuisine</h2>
+        <div class="food-items-container">
+            <div class="food-card">
+                <img src="images/thai.jpg" alt="Pad Thai" class="food-card-img">
+                <div class="food-card-content">
+                    <h3>Pad Thai</h3>
+                    <p>Stir-fried rice noodles with peanuts</p>
+                    <p class="price">₹400</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="food-card">
+                <img src="images/green-curry.jpg" alt="Green Curry" class="food-card-img">
+                <div class="food-card-content">
+                    <h3>Green Curry</h3>
+                    <p>Spicy coconut milk-based curry</p>
+                    <p class="price">₹370</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Japanese Cuisine -->
+    <div class="cuisine-category" id="japanese">
+        <h2>Japanese Cuisine</h2>
+        <div class="food-items-container">
+            <div class="food-card">
+                <img src="images/japanese.jpg" alt="Sushi" class="food-card-img">
+                <div class="food-card-content">
+                    <h3>Sushi Platter</h3>
+                    <p>Assorted sushi rolls</p>
+                    <p class="price">₹550</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="food-card">
+                <img src="images/ramen.jpg" alt="Ramen" class="food-card-img">
+                <div class="food-card-content">
+                    <h3>Ramen</h3>
+                    <p>Noodles in a flavorful broth</p>
+                    <p class="price">₹400</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mexican Cuisine -->
+    <div class="cuisine-category" id="mexican">
+        <h2>Mexican Cuisine</h2>
+        <div class="food-items-container">
+            <div class="food-card">
+                <img src="images/mexican.jpg" alt="Tacos" class="food-card-img">
+                <div class="food-card-content">
+                    <h3>Tacos</h3>
+                    <p>Soft shell tacos with fillings</p>
+                    <p class="price">₹300</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="food-card">
+                <img src="images/quesedilla.jpg" alt="Quesadilla" class="food-card-img">
+                <div class="food-card-content">
+                    <h3>Quesadilla</h3>
+                    <p>Grilled tortilla with cheese & fillings</p>
+                    <p class="price">₹320</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Italian Cuisine -->
+    <div class="cuisine-category" id="italian">
+        <h2>Italian Cuisine</h2>
+        <div class="food-items-container">
+            <div class="food-card">
+                <img src="images/italian.jpg" alt="Pizza" class="food-card-img">
+                <div class="food-card-content">
+                    <h3>Margherita Pizza</h3>
+                    <p>Classic pizza with tomato & basil</p>
+                    <p class="price">₹500</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="food-card">
+                <img src="images/pasta.jpg" alt="Pasta" class="food-card-img">
+                <div class="food-card-content">
+                    <h3>Pasta Alfredo</h3>
+                    <p>Creamy white sauce pasta</p>
+                    <p class="price">₹450</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+        
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-container">
+            <h2>About FastBite</h2>
+            <p>Contact: <a href="mailto:support@fastbite.com">support@fastbite.com</a> | <a href="tel:+1234567890">+1 234 567 890</a></p>
+            <p>&copy; 2025 FastBite. All Rights Reserved.</p>
+        </div>
+    </footer>
+<!-- Popup Notification -->
+<div id="cart-popup" class="cart-popup">Item added to cart!</div>
+
+</body>
+</html>
+<script>
+    document.getElementById("more-filters").addEventListener("click", function() {
+        const extraFilters = document.getElementById("extra-filters");
+        extraFilters.style.display = extraFilters.style.display === "flex" ? "none" : "flex";
+    });
+    
+    // for Popup Notification
+    function showCartPopup() {
+        const popup = document.getElementById("cart-popup");
+        popup.classList.add("show"); // Show popup
+        setTimeout(() => {
+            popup.classList.remove("show"); // Hide popup after 2 seconds
+        }, 2000);
+    }
+
+    // Create and insert "No items found" message dynamically
+let noItemsMessage = document.createElement("p");
+noItemsMessage.id = "no-items-message";
+noItemsMessage.textContent = "No items found!";
+noItemsMessage.style.display = "none"; // Initially hidden
+noItemsMessage.style.textAlign = "center";
+noItemsMessage.style.fontSize = "18px";
+noItemsMessage.style.color = "red";
+document.getElementById("menu-items").appendChild(noItemsMessage);
+
+// Cuisine Filter
+document.getElementById("filter-cuisine").addEventListener("change", function () {
+    filterMenu();
+});
+
+// Search Filter
+document.getElementById("search-menu").addEventListener("input", function () {
+    filterMenu();
+});
+
+// Function to filter menu items based on cuisine and search
+function filterMenu() {
+    const selectedCuisine = document.getElementById("filter-cuisine").value.toLowerCase();
+    const searchText = document.getElementById("search-menu").value.toLowerCase();
+
+    let hasResults = false; // Track if any item is found
+
+    document.querySelectorAll(".cuisine-category").forEach(section => {
+        let sectionMatches = false; // Track if any item in this section matches
+        const cuisineId = section.id.toLowerCase();
+
+        section.querySelectorAll(".food-card").forEach(card => {
+            const foodName = card.querySelector("h3").textContent.toLowerCase();
+            
+            // Check if item matches search and cuisine filter
+            const matchesSearch = searchText === "" || foodName.includes(searchText);
+            const matchesCuisine = selectedCuisine === "all" || cuisineId === selectedCuisine;
+
+            if (matchesSearch && matchesCuisine) {
+                card.style.display = "block"; // Show item
+                sectionMatches = true;
+                hasResults = true; // At least one item found
+            } else {
+                card.style.display = "none"; // Hide item
+            }
+        });
+
+        // Show/hide entire section based on matches
+        section.style.display = sectionMatches ? "block" : "none";
+    });
+
+    // Show "No items found" message if nothing matches
+    noItemsMessage.style.display = hasResults ? "none" : "block";
+}
+
+    </script>
+    
