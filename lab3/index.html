@@ -5,94 +5,115 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FastBite - Home</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
     <!-- Top Menu -->
     <header>
         <nav>
+            <a href="index.html" class="logo"><strong>FastBite</strong></a>
             <ul>
-                <li><a href="index.html"><strong>FastBite</strong></a></li>
                 <li><a href="menu.html">Menu</a></li>
+                <li><a href="menu.html">Your Orders</a></li>
                 <li><a href="signin.html">Sign In</a></li>
-                <li><a href="cart.html">Cart</a></li>
+                <li class="cart-icon">
+                    <a href="cart.html">Cart</a>
+                    <!-- <span class="cart-count">3</span> -->
+                </li>
             </ul>
         </nav>
     </header>
     
+    
+    
     <!-- Hero Section -->
     <section id="hero">
-        <h2>Delicious Food Delivered to Your Doorstep</h2>
+        <h2>Delicious Food Delivered at your Doorstep</h2>
         <!-- Search and Location on same line -->
         <div>
             <input type="text" placeholder="Search for food..." id="search-box">
             <div id="location-wrapper">
-                <img src="location-icon.png" alt="Location Icon" id="location-icon">
+                <i class="fa-solid fa-location-dot"></i>
                 <input type="text" id="location-input" value="Chennai">
             </div>
         </div>
     </section>
     
     <!-- Cuisine Categories -->
-    <section id="cuisine-cards">
-        <h2>Explore By Cuisine</h2>
-        <div class="cuisine-cards-container">
-            <div class="cuisine-card">
-                <h3>Indian</h3>
-                <a href="menu.html#indian">Explore</a>
-            </div>
-            <div class="cuisine-card">
-                <h3>Thai</h3>
-                <a href="menu.html#thai">Explore</a>
-            </div>
-            <div class="cuisine-card">
-                <h3>Japanese</h3>
-                <a href="menu.html#japanese">Explore</a>
-            </div>
-            <div class="cuisine-card">
-                <h3>Mexican</h3>
-                <a href="menu.html#mexican">Explore</a>
-            </div>
-            <div class="cuisine-card">
-                <h3>Italian</h3>
-                <a href="menu.html#italian">Explore</a>
-            </div>
+     <!-- Cuisine Categories -->
+<section id="cuisine-cards">
+    <h2>Explore By Cuisine</h2>
+    <div class="cuisine-cards-container">
+        <div class="cuisine-card popular" data-cuisine="indian">
+            <span class="badge">Most Popular</span>
+            <h3>Indian</h3>
+            <a href="menu.html#indian" aria-label="Explore Indian cuisine">Explore</a>
         </div>
-    </section>
+        <div class="cuisine-card" data-cuisine="thai">
+            <h3>Thai</h3>
+            <a href="menu.html#thai" aria-label="Explore Thai cuisine">Explore</a>
+        </div>
+        <div class="cuisine-card" data-cuisine="japanese">
+            <h3>Japanese</h3>
+            <a href="menu.html#japanese" aria-label="Explore Japanese cuisine">Explore</a>
+        </div>
+        <div class="cuisine-card" data-cuisine="mexican">
+            <h3>Mexican</h3>
+            <a href="menu.html#mexican" aria-label="Explore Mexican cuisine">Explore</a>
+        </div>
+        <div class="cuisine-card" data-cuisine="italian">
+            <h3>Italian</h3>
+            <a href="menu.html#italian" aria-label="Explore Italian cuisine">Explore</a>
+        </div>
+    </div>
+</section>
+
+
     
-    <!-- Call to Action -->
+    <!-- Call to Action (Improved) -->
     <section id="call-to-action">
         <h2>Order Now & Get Exciting Discounts!</h2>
         
-        <div class="offers-container">
-            <div class="offer-card">
+        <div class="offers-carousel">
+            <div class="offer-card" onclick="selectOffer('Family Combo')">
                 <h3>🔥 Family Combo</h3>
                 <p>Pizza, Pasta, Garlic Bread & Drinks</p>
-                <p><b>20% OFF</b></p>
-                <button>Add to Cart</button>
+                <p class="discount">20% OFF</p>
             </div>
-            <div class="offer-card">
+            <div class="offer-card" onclick="selectOffer('Burger Feast')">
                 <h3>🍔 Burger Feast</h3>
                 <p>2 Large Burgers + Fries + Drinks</p>
-                <p><b>Flat ₹100 OFF</b></p>
-                <button>Add to Cart</button>
+                <p class="discount">Flat ₹100 OFF</p>
             </div>
-            <div class="offer-card">
+            <div class="offer-card" onclick="selectOffer('Mexican Fiesta')">
                 <h3>🌮 Mexican Fiesta</h3>
                 <p>Tacos, Nachos, Salsa & Mojito</p>
-                <p><b>Buy 1 Get 1 Free</b></p>
-                <button>Add to Cart</button>
+                <p class="discount">Buy 1 Get 1 Free</p>
             </div>
         </div>
         
-        <button class="view-more-btn">View More Offers</button>
-        <button class="order-now-btn">Order Now</button>
+        <div class="cta-buttons">
+            <button class="view-more-btn">View More Offers</button>
+            <button class="order-now-btn" id="orderNowBtn">Order Now</button>
+        </div>
     </section>
-    
+
     <!-- Footer -->
     <footer id="contact">
-        <h2>About FastBite</h2>
-        <p>Contact: support@fastbite.com | +1 234 567 890</p>
-        <p>&copy; 2025 FastBite. All Rights Reserved.</p>
+        <div class="footer-container">
+            <h2>About FastBite</h2>
+            <p>Contact: <a href="mailto:support@fastbite.com">support@fastbite.com</a> | <a href="tel:+1234567890">+1 234 567 890</a></p>
+            <p>&copy; 2025 FastBite. All Rights Reserved.</p>
+        </div>
     </footer>
+    
 </body>
 </html>
+
+<script>
+    let selectedOffer = '';
+    function selectOffer(offerName) {
+        selectedOffer = offerName;
+        document.getElementById('orderNowBtn').innerText = `Order ${offerName}`;
+    }
+</script>
