@@ -205,6 +205,7 @@
         extraFilters.style.display = extraFilters.style.display === "flex" ? "none" : "flex";
     });
     
+    // for Popup Notification
     function showCartPopup() {
         const popup = document.getElementById("cart-popup");
         popup.classList.add("show"); // Show popup
@@ -212,10 +213,61 @@
             popup.classList.remove("show"); // Hide popup after 2 seconds
         }, 2000);
     }
-    
-    // Attach event listeners to all "Add to Cart" buttons
-    document.querySelectorAll(".add-to-cart").forEach(button => {
-        button.addEventListener("click", showCartPopup);
+
+    // Create and insert "No items found" message dynamically
+let noItemsMessage = document.createElement("p");
+noItemsMessage.id = "no-items-message";
+noItemsMessage.textContent = "No items found!";
+noItemsMessage.style.display = "none"; // Initially hidden
+noItemsMessage.style.textAlign = "center";
+noItemsMessage.style.fontSize = "18px";
+noItemsMessage.style.color = "red";
+document.getElementById("menu-items").appendChild(noItemsMessage);
+
+// Cuisine Filter
+document.getElementById("filter-cuisine").addEventListener("change", function () {
+    filterMenu();
+});
+
+// Search Filter
+document.getElementById("search-menu").addEventListener("input", function () {
+    filterMenu();
+});
+
+// Function to filter menu items based on cuisine and search
+function filterMenu() {
+    const selectedCuisine = document.getElementById("filter-cuisine").value.toLowerCase();
+    const searchText = document.getElementById("search-menu").value.toLowerCase();
+
+    let hasResults = false; // Track if any item is found
+
+    document.querySelectorAll(".cuisine-category").forEach(section => {
+        let sectionMatches = false; // Track if any item in this section matches
+        const cuisineId = section.id.toLowerCase();
+
+        section.querySelectorAll(".food-card").forEach(card => {
+            const foodName = card.querySelector("h3").textContent.toLowerCase();
+            
+            // Check if item matches search and cuisine filter
+            const matchesSearch = searchText === "" || foodName.includes(searchText);
+            const matchesCuisine = selectedCuisine === "all" || cuisineId === selectedCuisine;
+
+            if (matchesSearch && matchesCuisine) {
+                card.style.display = "block"; // Show item
+                sectionMatches = true;
+                hasResults = true; // At least one item found
+            } else {
+                card.style.display = "none"; // Hide item
+            }
+        });
+
+        // Show/hide entire section based on matches
+        section.style.display = sectionMatches ? "block" : "none";
     });
+
+    // Show "No items found" message if nothing matches
+    noItemsMessage.style.display = hasResults ? "none" : "block";
+}
+
     </script>
     
