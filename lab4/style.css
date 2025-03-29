@@ -1,0 +1,156 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: #f4f6f8;
+    color: #333;
+  }
+  
+  header {
+    background: #2d3e50;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  
+  nav a {
+    color: white;
+    margin-left: 1.5rem;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  
+  .hero {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: #ecf0f1;
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+    margin: 1rem 0;
+  }
+  
+  .hero button {
+    padding: 1rem 2rem;
+    background: #3498db;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .courses {
+    padding: 2rem;
+    background: white;
+  }
+  
+  .course-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+  }
+  
+  .course-card {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    max-width: 300px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  
+  .course-card img {
+    width: 100%;
+    border-radius: 6px;
+  }
+  
+  .instructor {
+    color: #34495e;
+  }
+  
+  .badge {
+    background: gold;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin-left: 4px;
+  }
+  
+  .scarcity {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .testimonials, .about, .contact {
+    padding: 2rem;
+    background: #fefefe;
+    text-align: center;
+  }
+  
+  .testimonial {
+    margin: 1rem auto;
+    max-width: 600px;
+  }
+  
+  .testimonial span {
+    display: block;
+    margin-top: 0.5rem;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  form input, form textarea {
+    margin: 0.5rem 0;
+    padding: 0.8rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  form button {
+    background: #27ae60;
+    color: white;
+    padding: 1rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  footer {
+    background: #2d3e50;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .course-grid {
+      flex-direction: column;
+      align-items: center;
+    }
+  }  

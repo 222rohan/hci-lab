@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LearnHub - Online Courses</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <header>
+    <div class="logo">LearnHub</div>
+    <nav>
+      <a href="#courses">Courses</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Master Skills from Top Instructors</h1>
+    <p>Join millions of learners. Sign up today and get a <strong>free course</strong>!</p>
+    <button onclick="claimFreeCourse()">Claim Free Course</button>
+  </section>
+
+  <section id="courses" class="courses">
+    <h2>Popular Courses</h2>
+    <div class="course-grid">
+
+      <div class="course-card">
+        <img src="https://via.placeholder.com/300x180" alt="Course 1" />
+        <h3>Full Stack Web Development</h3>
+        <p><strong class="instructor">Dr. Jane Smith <span class="badge">✔ Top Instructor</span></strong></p>
+        <p>⭐ 4.8 (12,000 ratings) · 45,000 students</p>
+        <p class="scarcity">Only 2 spots left today!</p>
+        <button>Enroll Now</button>
+      </div>
+
+      <div class="course-card">
+        <img src="https://via.placeholder.com/300x180" alt="Course 2" />
+        <h3>Data Science with Python</h3>
+        <p><strong class="instructor">Prof. John Doe <span class="badge">✔ Data Expert</span></strong></p>
+        <p>⭐ 4.7 (9,500 ratings) · 38,000 students</p>
+        <p class="scarcity">Last chance to enroll this week!</p>
+        <button>Enroll Now</button>
+      </div>
+
+      <div class="course-card">
+        <img src="https://via.placeholder.com/300x180" alt="Course 3" />
+        <h3>UI/UX Design Essentials</h3>
+        <p><strong class="instructor">Sarah Williams</strong></p>
+        <p>⭐ 4.6 (8,200 ratings) · 30,000 students</p>
+        <p>Start learning design today</p>
+        <button>Enroll Now</button>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="testimonials" class="testimonials">
+    <h2>What Our Learners Say</h2>
+    <div class="testimonial">
+      <p>"LearnHub helped me land my first job as a developer. Highly recommended!"</p>
+      <span>- Alex, Frontend Developer</span>
+    </div>
+    <div class="testimonial">
+      <p>"The instructors are amazing, and the content is always up to date."</p>
+      <span>- Priya, Data Analyst</span>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <h2>Why Choose LearnHub?</h2>
+    <ul>
+      <li>✅ Learn from certified experts (Authority)</li>
+      <li>✅ Free resources when you sign up (Reciprocity)</li>
+      <li>✅ Limited-time offers and exclusive content (Scarcity)</li>
+      <li>✅ Friendly community and peer learning (Liking)</li>
+    </ul>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Contact Us</h2>
+    <form onsubmit="submitForm(event)">
+      <input type="text" placeholder="Your name" required />
+      <input type="email" placeholder="Your email" required />
+      <textarea placeholder="Message"></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 LearnHub. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
