@@ -26,7 +26,6 @@
   <section id="courses" class="courses">
     <h2>Popular Courses</h2>
     <div class="course-grid">
-
       <div class="course-card">
         <img src="https://via.placeholder.com/300x180" alt="Course 1" />
         <h3>Full Stack Web Development</h3>
@@ -53,7 +52,6 @@
         <p>Start learning design today</p>
         <button>Enroll Now</button>
       </div>
-
     </div>
   </section>
 
@@ -79,19 +77,61 @@
     </ul>
   </section>
 
+  <section class="upload-section">
+    <h2>Upload Your Course Content</h2>
+    <input type="file" onchange="simulateUpload()" />
+    <div class="progress-container">
+      <div class="progress-bar" id="uploadProgress"></div>
+    </div>
+  </section>
+
   <section id="contact" class="contact">
     <h2>Contact Us</h2>
     <form onsubmit="submitForm(event)">
       <input type="text" placeholder="Your name" required />
       <input type="email" placeholder="Your email" required />
       <textarea placeholder="Message"></textarea>
+
+      <div class="captcha-section">
+        <label>Solve: <span id="mathCaptcha"></span></label>
+        <input type="text" id="captchaAnswer" required />
+      </div>
+
+      <div class="captcha-section">
+        <label><input type="checkbox" id="notRobot"/> I'm not a robot</label>
+      </div>
+
+      <div class="captcha-section image-captcha">
+        <p>Select all images with <strong>cats</strong></p>
+        <div class="captcha-images">
+          <div class="box">🐱</div><div class="box">🐶</div><div class="box">🐱</div>
+        </div>
+      </div>
+
+      <div class="captcha-section">
+        <label>Slide to verify:</label>
+        <input type="range" id="slider" min="0" max="100" />
+      </div>
+
+      <div class="captcha-section">
+        <label>Type this word: <strong>LearnHub</strong></label>
+        <input type="text" id="wordCheck" required />
+      </div>
+
       <button type="submit">Send Message</button>
+      <div class="loader-circle" id="formLoader" hidden></div>
     </form>
   </section>
 
   <footer>
     <p>&copy; 2025 LearnHub. All rights reserved.</p>
   </footer>
+
+  <!-- Overlay full-page loader -->
+  <div id="overlayLoader">
+    <div class="overlay-spinner"></div>
+    <p>Loading Courses...</p>
+  </div>
 
   <script src="script.js"></script>
 </body>
