@@ -3,82 +3,161 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>LearnHub - Online Courses</title>
+  <title>LearnHub - Accelerate Your Career with Expert-Led Courses</title>
   <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta name="description" content="LearnHub offers expert-led online courses to help you master new skills. Get a free course when you sign up today!">
 </head>
 <body>
   <header>
     <div class="logo">LearnHub</div>
     <nav>
       <a href="#courses">Courses</a>
-      <a href="#testimonials">Testimonials</a>
-      <a href="#about">About</a>
+      <a href="#testimonials">Success Stories</a>
+      <a href="#experts">Our Experts</a>
+      <a href="#about">Why LearnHub</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
 
+  <!-- Special Offer Banner - Scarcity -->
+  <div class="special-offer">
+    Limited Time Offer: 50% OFF all premium courses for the next <span id="countdown">10:19:13</span>
+  </div>
+
   <section class="hero">
-    <h1>Master Skills from Top Instructors</h1>
-    <p>Join millions of learners. Sign up today and get a <strong>free course</strong>!</p>
-    <button onclick="claimFreeCourse()">Claim Free Course</button>
+    <h1>Learn from Industry Experts</h1>
+    <p>Join over 2 million learners worldwide and accelerate your career. Sign up today and get a <strong>completely free course</strong> valued at $99!</p>
+    <button onclick="claimFreeCourse()">Claim Your Free Course Now</button>
   </section>
 
+  <!-- Free Course Notification - Reciprocity -->
+  <div class="free-notification">
+    🎁 New members get a completely free course! No credit card required.
+  </div>
+
   <section id="courses" class="courses">
-    <h2>Popular Courses</h2>
+    <h2>Top-Rated Courses</h2>
     <div class="course-grid">
       <div class="course-card">
-        <img src="https://via.placeholder.com/300x180" alt="Course 1" />
+        <img src="images/fswd.png" alt="Full Stack Web Development Course" />
         <h3>Full Stack Web Development</h3>
-        <p><strong class="instructor">Dr. Jane Smith <span class="badge">✔ Top Instructor</span></strong></p>
+        <p><strong class="instructor">Dr. Jane Smith <span class="badge">Harvard PhD</span></strong></p>
         <p>⭐ 4.8 (12,000 ratings) · 45,000 students</p>
-        <p class="scarcity">Only 2 spots left today!</p>
-        <button>Enroll Now</button>
+        <p class="scarcity">⚠️ Only 2 spots left at this price!</p>
+        <button>Enroll Now - ₹49.99</button>
       </div>
 
       <div class="course-card">
-        <img src="https://via.placeholder.com/300x180" alt="Course 2" />
+        <img src="images/dspy.jpeg" alt="Data Science with Python Course" />
         <h3>Data Science with Python</h3>
-        <p><strong class="instructor">Prof. John Doe <span class="badge">✔ Data Expert</span></strong></p>
+        <p><strong class="instructor">Prof. John Doe <span class="badge">Google AI Lead</span></strong></p>
         <p>⭐ 4.7 (9,500 ratings) · 38,000 students</p>
-        <p class="scarcity">Last chance to enroll this week!</p>
-        <button>Enroll Now</button>
+        <p class="scarcity">⚠️ Last day for 50% discount!</p>
+        <button>Enroll Now - ₹39.99</button>
       </div>
 
       <div class="course-card">
-        <img src="https://via.placeholder.com/300x180" alt="Course 3" />
+        <img src="images/uiux.png" alt="UI/UX Design Essentials Course" />
         <h3>UI/UX Design Essentials</h3>
-        <p><strong class="instructor">Sarah Williams</strong></p>
+        <p><strong class="instructor">Sarah Williams <span class="badge">Design Director</span></strong></p>
         <p>⭐ 4.6 (8,200 ratings) · 30,000 students</p>
-        <p>Start learning design today</p>
-        <button>Enroll Now</button>
+        <p class="scarcity">⚠️ 73% of slots filled!</p>
+        <button>Enroll Now - ₹44.99</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Authority Section -->
+  <section id="experts" class="authority">
+    <h2>Learn from Recognized Experts</h2>
+    <div class="authority-badges">
+      <div class="authority-badge">
+        <img src="images/hrvd.png" alt="Harvard" />
+        <span>Harvard University</span>
+      </div>
+      <div class="authority-badge">
+        <img src="images/goog.jpg" alt="Google" />
+        <span>Google</span>
+      </div>
+      <div class="authority-badge">
+        <img src="images/msft.jpg" alt="Microsoft" />
+        <span>Microsoft</span>
+      </div>
+      <div class="authority-badge">
+        <img src="images/amzn.jpg" alt="Amazon" />
+        <span>Amazon</span>
+      </div>
+    </div>
+    <div class="expert-profile">
+      <div class="expert">
+        <img src="images/jnsm.jpg" alt="Dr. Jane Smith" />
+        <h4>Dr. Jane Smith</h4>
+        <p>PhD in Computer Science from Harvard, 15+ years industry experience at Google</p>
+      </div>
+      <div class="expert">
+        <img src="images/rmkr.avif" alt="Prof. John Doe" />
+        <h4>Prof. Ram Kumar</h4>
+        <p>Former AI Lead at Google, Stanford PhD, author of "Python for Data Science"</p>
+      </div>
+      <div class="expert">
+        <img src="images/sejh.jpg" alt="Sarah Williams" />
+        <h4>Seema Jha</h4>
+        <p>Design Director at Apple, 10+ years experience in product design and UX</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Consensus Section -->
+  <section class="consensus">
+    <h2>Join Thousands of Successful Learners</h2>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-number">94%</div>
+        <p>of our learners report career advancement</p>
+      </div>
+      <div class="stat">
+        <div class="stat-number">2M+</div>
+        <p>students worldwide</p>
+      </div>
+      <div class="stat">
+        <div class="stat-number">87%</div>
+        <p>complete their courses</p>
+      </div>
+      <div class="stat">
+        <div class="stat-number">$15K</div>
+        <p>average salary increase</p>
       </div>
     </div>
   </section>
 
   <section id="testimonials" class="testimonials">
-    <h2>What Our Learners Say</h2>
+    <h2>Success Stories</h2>
     <div class="testimonial">
-      <p>"LearnHub helped me land my first job as a developer. Highly recommended!"</p>
-      <span>- Alex, Frontend Developer</span>
+      <p>"After completing the Full Stack Development course, I received three job offers in two weeks. The instructors are world-class and the course content is extremely practical."</p>
+      <span>- Alex Chen, Senior Developer at Spotify</span>
     </div>
     <div class="testimonial">
-      <p>"The instructors are amazing, and the content is always up to date."</p>
-      <span>- Priya, Data Analyst</span>
+      <p>"The Data Science course completely changed my career trajectory. Within 3 months of finishing, I landed my dream job at a major tech company with a 40% salary increase!"</p>
+      <span>- Priya Sharma, Data Scientist at Microsoft</span>
     </div>
   </section>
 
   <section id="about" class="about">
-    <h2>Why Choose LearnHub?</h2>
+    <h2>Why Thousands Choose LearnHub</h2>
     <ul>
-      <li>✅ Learn from certified experts (Authority)</li>
-      <li>✅ Free resources when you sign up (Reciprocity)</li>
-      <li>✅ Limited-time offers and exclusive content (Scarcity)</li>
-      <li>✅ Friendly community and peer learning (Liking)</li>
+      <li>Learn directly from industry leaders and certified experts</li>
+      <li>Get a completely free course worth $99 when you sign up</li>
+      <li>Access exclusive content not available anywhere else</li>
+      <li>Join a friendly community of over 2 million learners</li>
+      <li>Earn recognized certificates to boost your resume</li>
+      <li>Flexible learning - study anytime, anywhere, at your own pace</li>
     </ul>
   </section>
 
   <section class="upload-section">
-    <h2>Upload Your Course Content</h2>
+    <h2>Upload Your Course Project</h2>
+    <p>Share your project files with instructors for personalized feedback</p>
     <input type="file" onchange="simulateUpload()" />
     <div class="progress-container">
       <div class="progress-bar" id="uploadProgress"></div>
@@ -86,15 +165,15 @@
   </section>
 
   <section id="contact" class="contact">
-    <h2>Contact Us</h2>
+    <h2>Get in Touch</h2>
     <form onsubmit="submitForm(event)">
       <input type="text" placeholder="Your name" required />
       <input type="email" placeholder="Your email" required />
-      <textarea placeholder="Message"></textarea>
+      <textarea placeholder="How can we help you?"></textarea>
 
       <div class="captcha-section">
-        <label>Solve: <span id="mathCaptcha"></span></label>
-        <input type="text" id="captchaAnswer" required />
+        <label>Solve this simple math problem: <span id="mathCaptcha">7 + 3 = ?</span></label>
+        <input type="text" id="captchaAnswer" required placeholder="Enter your answer" />
       </div>
 
       <div class="captcha-section">
@@ -109,13 +188,13 @@
       </div>
 
       <div class="captcha-section">
-        <label>Slide to verify:</label>
-        <input type="range" id="slider" min="0" max="100" />
+        <label>Slide to verify your identity:</label>
+        <input type="range" id="slider" min="0" max="100" value="0" />
       </div>
 
       <div class="captcha-section">
         <label>Type this word: <strong>LearnHub</strong></label>
-        <input type="text" id="wordCheck" required />
+        <input type="text" id="wordCheck" required placeholder="Type exactly as shown" />
       </div>
 
       <button type="submit">Send Message</button>
@@ -125,12 +204,13 @@
 
   <footer>
     <p>&copy; 2025 LearnHub. All rights reserved.</p>
+    <p>Join over 2 million learners worldwide in mastering new skills</p>
   </footer>
 
   <!-- Overlay full-page loader -->
   <div id="overlayLoader">
     <div class="overlay-spinner"></div>
-    <p>Loading Courses...</p>
+    <p>Loading Amazing Courses...</p>
   </div>
 
   <script src="script.js"></script>
