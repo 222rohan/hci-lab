@@ -143,6 +143,15 @@ function updateCountdown() {
   countdownElement.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
 
+function openContactModal() {
+    document.getElementById('contactModal').style.display = 'block';
+    generateMathCaptcha(); // regenerate captcha when modal opens
+}
+  
+function closeContactModal() {
+    document.getElementById('contactModal').style.display = 'none';
+}
+
 // Simulate selecting cat images (on click)
 document.addEventListener('DOMContentLoaded', function() {
   const captchaBoxes = document.querySelectorAll('.box');
