@@ -681,3 +681,23 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  let progressBar = document.getElementById("courseLoadProgress");
+  let coursesSection = document.getElementById("courses");
+  let coursesLoading = document.getElementById("coursesLoading");
+  
+  let progress = 0;
+  let loadingInterval = setInterval(() => {
+    progress += 10; // Increase by 10% every interval
+
+    progressBar.style.width = progress + "%"; // Update width
+    progressBar.textContent = progress + "%"; // Show percentage
+
+    if (progress >= 100) {
+      clearInterval(loadingInterval); // Stop when fully loaded
+      coursesLoading.style.display = "none"; // Hide loading section
+      coursesSection.style.display = "block"; // Show courses
+    }
+  }, 500); // Update every 500ms
+});
