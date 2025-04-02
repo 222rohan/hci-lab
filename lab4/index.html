@@ -5,10 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>LearnHub - Accelerate Your Career with Expert-Led Courses</title>
   <link rel="stylesheet" href="style.css"/>
+  <script src="script.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <meta name="description" content="LearnHub offers expert-led online courses to help you master new skills. Get a free course when you sign up today!">
+
 </head>
 <body>
+  <!-- Page loading progress bar at the top -->
+  <div class="loader-bar" id="pageLoadProgress">
+    <div class="loader-bar-progress"></div>
+  </div>
+
   <header>
     <div class="logo">LearnHub</div>
     <nav>
@@ -28,7 +35,8 @@
   <section class="hero">
     <h1>Learn from Industry Experts</h1>
     <p>Join over 2 million learners worldwide and accelerate your career. Sign up today and get a <strong>completely free course</strong> valued at $99!</p>
-    <button onclick="claimFreeCourse()">Claim Your Free Course Now</button>
+    <button onclick="claimFreeCourse()" id="freeClaimBtn">Claim Your Free Course Now</button>
+    <div id="claimLoader" class="loader-circle" style="display: none;"></div>
   </section>
 
   <!-- Free Course Notification - Reciprocity -->
@@ -36,7 +44,15 @@
     🎁 New members get a completely free course! No credit card required.
   </div>
 
-  <section id="courses" class="courses">
+  <!-- Course loading section -->
+  <div id="coursesLoading" class="course-loading">
+    <p>Loading personalized course recommendations...</p>
+    <div class="loader-bar">
+      <div class="loader-bar-progress" id="courseLoadProgress"></div>
+    </div>
+  </div>
+
+  <section id="courses" class="courses" style="display: none;">
     <h2>Top-Rated Courses</h2>
     <div class="course-grid">
       <div class="course-card">
@@ -45,7 +61,11 @@
         <p><strong class="instructor">Dr. Jane Smith <span class="badge">Harvard PhD</span></strong></p>
         <p>⭐ 4.8 (12,000 ratings) · 45,000 students</p>
         <p class="scarcity">⚠️ Only 2 spots left at this price!</p>
-        <button>Enroll Now - ₹49.99</button>
+        <button onclick="enrollCourse('web-dev')">Enroll Now - ₹49.99</button>
+        <div class="enrollment-loader" id="loader-web-dev">
+          <div class="loader-circle"></div>
+          <p>Processing enrollment...</p>
+        </div>
       </div>
 
       <div class="course-card">
@@ -54,7 +74,11 @@
         <p><strong class="instructor">Prof. John Doe <span class="badge">Google AI Lead</span></strong></p>
         <p>⭐ 4.7 (9,500 ratings) · 38,000 students</p>
         <p class="scarcity">⚠️ Last day for 50% discount!</p>
-        <button>Enroll Now - ₹39.99</button>
+        <button onclick="enrollCourse('data-science')">Enroll Now - ₹39.99</button>
+        <div class="enrollment-loader" id="loader-data-science">
+          <div class="loader-circle"></div>
+          <p>Processing enrollment...</p>
+        </div>
       </div>
 
       <div class="course-card">
@@ -63,8 +87,25 @@
         <p><strong class="instructor">Sarah Williams <span class="badge">Design Director</span></strong></p>
         <p>⭐ 4.6 (8,200 ratings) · 30,000 students</p>
         <p class="scarcity">⚠️ 73% of slots filled!</p>
-        <button>Enroll Now - ₹44.99</button>
+        <button onclick="enrollCourse('ui-ux')">Enroll Now - ₹44.99</button>
+        <div class="enrollment-loader" id="loader-ui-ux">
+          <div class="loader-circle"></div>
+          <p>Processing enrollment...</p>
+        </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Video preview section with loading animation -->
+  <section class="video-section">
+    <h2>Course Preview</h2>
+    <div class="video-loading" id="videoLoading">
+      <div class="loader-circle"></div>
+      <p>Loading video preview...</p>
+    </div>
+    <div id="videoPlayer" style="display: none;">
+      <!-- Video player would go here -->
+      <p>Video loaded successfully! Click to play.</p>
     </div>
   </section>
 
@@ -158,10 +199,12 @@
   <section class="upload-section">
     <h2>Upload Your Course Project</h2>
     <p>Share your project files with instructors for personalized feedback</p>
-    <input type="file" onchange="simulateUpload()" />
-    <div class="progress-container">
+    <input type="file" id="projectUpload" onchange="simulateUpload()" />
+    <button onclick="startUpload()" id="uploadBtn">Upload Files</button>
+    <div class="progress-container" id="uploadProgressContainer">
       <div class="progress-bar" id="uploadProgress"></div>
     </div>
+    <p id="uploadStatus"></p>
   </section>
 
   <section id="contact" class="contact">
@@ -173,43 +216,85 @@
     <div class="modal-content">
       <span class="close" onclick="closeContactModal()">&times;</span>
       <h2>Contact Us</h2>
-      <form onsubmit="submitForm(event)">
+      <form id="contactForm" onsubmit="submitForm(event)">
         <input type="text" placeholder="Your name" required />
         <input type="email" placeholder="Your email" required />
         <textarea placeholder="How can we help you?"></textarea>
-  
+        
+        <!-- Enhanced Math Captcha -->
         <div class="captcha-section">
           <label>Solve this simple math problem: <span id="mathCaptcha">7 + 3 = ?</span></label>
           <input type="text" id="captchaAnswer" required placeholder="Enter your answer" />
+          <div id="mathCaptchaResult"></div>
         </div>
-  
+        
+        <!-- reCAPTCHA style checkbox -->
         <div class="captcha-section">
           <label><input type="checkbox" id="notRobot"/> I'm not a robot</label>
+          <div class="loader-circle" id="robotCheckLoader" style="display: none;"></div>
         </div>
-  
+        
+        <!-- Image Selection Captcha -->
         <div class="captcha-section image-captcha">
           <p>Select all images with <strong>cats</strong></p>
           <div class="captcha-images">
-            <div class="box">🐱</div><div class="box">🐶</div><div class="box">🐱</div>
+            <div class="box" data-type="cat" onclick="selectImage(this)">🐱</div>
+            <div class="box" data-type="dog" onclick="selectImage(this)">🐶</div>
+            <div class="box" data-type="cat" onclick="selectImage(this)">🐱</div>
           </div>
+          <div id="imageCaptchaResult"></div>
         </div>
-  
+        
+        <!-- Slider Verification -->
         <div class="captcha-section">
           <label>Slide to verify your identity:</label>
-          <input type="range" id="slider" min="0" max="100" value="0" />
+          <input type="range" id="slider" min="0" max="100" value="0" oninput="updateSliderValue(this.value)" />
+          <div id="sliderValue">0%</div>
         </div>
-  
+        
+        <!-- Text Entry Verification -->
         <div class="captcha-section">
-          <label>Type this word: <strong>LearnHub</strong></label>
-          <input type="text" id="wordCheck" required placeholder="Type exactly as shown" />
+          <label>Type this word: <strong id="captchaWord">LearnHub</strong></label>
+          <input type="text" id="wordCheck" required placeholder="Type exactly as shown" oninput="checkWordMatch(this.value)" />
+          <div id="wordCheckResult"></div>
         </div>
-  
-        <button type="submit">Send Message</button>
-        <div class="loader-circle" id="formLoader" hidden></div>
+        
+        <!-- Advanced Captcha - Line Drawing -->
+        <div class="captcha-section">
+          <label>Draw a line from left to right:</label>
+          <canvas id="drawCaptcha" width="300" height="100" style="border:1px solid #ddd; background: #f9f9f9;"></canvas>
+          <button type="button" onclick="resetDrawing()">Reset Drawing</button>
+        </div>
+        
+        <!-- Form Submission with Loading -->
+        <div style="display: flex; align-items: center;">
+          <button type="submit" id="submitButton">Send Message</button>
+          <div class="loader-circle" id="formLoader" style="display: none;"></div>
+        </div>
+        
+        <div id="formStatus"></div>
       </form>
     </div>
   </div>
   
+  <!-- Course enrollment confirmation modal -->
+  <div id="enrollmentModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="document.getElementById('enrollmentModal').style.display='none'">&times;</span>
+      <h2>Confirm Enrollment</h2>
+      <p>You're about to enroll in <span id="courseName"></span></p>
+      
+      <!-- Human verification before enrollment -->
+      <div class="captcha-section">
+        <p>Please verify you're human:</p>
+        <label>What is <span id="enrollCaptcha">5 + 8</span>?</label>
+        <input type="text" id="enrollCaptchaAnswer" required placeholder="Enter answer" />
+      </div>
+      
+      <button onclick="processEnrollment()">Confirm Enrollment</button>
+      <div class="loader-circle" id="enrollmentProcessLoader" style="display: none;"></div>
+    </div>
+  </div>
 
   <footer>
     <p>&copy; 2025 LearnHub. All rights reserved.</p>
@@ -219,9 +304,11 @@
   <!-- Overlay full-page loader -->
   <div id="overlayLoader">
     <div class="overlay-spinner"></div>
-    <p>Loading Amazing Courses...</p>
+    <p id="loadingMessage">Loading Amazing Courses...</p>
+    <div class="loader-bar" style="width: 200px;">
+      <div class="loader-bar-progress" id="overlayProgress"></div>
+    </div>
   </div>
 
-  <script src="script.js"></script>
 </body>
 </html>
