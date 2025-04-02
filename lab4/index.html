@@ -96,7 +96,6 @@
     </div>
   </section>
 
-  <!-- Video preview section with loading animation -->
   <section class="video-section">
     <h2>Course Preview</h2>
     <div class="video-loading" id="videoLoading">
@@ -104,8 +103,12 @@
       <p>Loading video preview...</p>
     </div>
     <div id="videoPlayer" style="display: none;">
-      <!-- Video player would go here -->
-      <p>Video loaded successfully! Click to play.</p>
+      <!-- HTML5 Video Player -->
+      <video id="coursePreviewVideo" controls width="100%" poster="images/video-image.jpg">
+        <source src="videos/education-video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+
     </div>
   </section>
 
@@ -149,28 +152,6 @@
     </div>
   </section>
 
-  <!-- Consensus Section -->
-  <section class="consensus">
-    <h2>Join Thousands of Successful Learners</h2>
-    <div class="stats">
-      <div class="stat">
-        <div class="stat-number">94%</div>
-        <p>of our learners report career advancement</p>
-      </div>
-      <div class="stat">
-        <div class="stat-number">2M+</div>
-        <p>students worldwide</p>
-      </div>
-      <div class="stat">
-        <div class="stat-number">87%</div>
-        <p>complete their courses</p>
-      </div>
-      <div class="stat">
-        <div class="stat-number">$15K</div>
-        <p>average salary increase</p>
-      </div>
-    </div>
-  </section>
 
   <section id="testimonials" class="testimonials">
     <h2>Success Stories</h2>

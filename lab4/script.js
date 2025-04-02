@@ -628,3 +628,56 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+
+// Video player functionality
+document.addEventListener('DOMContentLoaded', function() {
+  // Elements
+  const videoLoading = document.getElementById('videoLoading');
+  const videoPlayer = document.getElementById('videoPlayer');
+  const video = document.getElementById('coursePreviewVideo');
+  const playPauseBtn = document.getElementById('playPauseBtn');
+  const fullscreenBtn = document.getElementById('fullscreenBtn');
+  
+  // Simulate video loading
+  setTimeout(function() {
+    videoLoading.style.display = 'none';
+    videoPlayer.style.display = 'block';
+  }, 1500);
+  
+  // Play/Pause functionality
+  if (playPauseBtn && video) {
+    playPauseBtn.addEventListener('click', function() {
+      if (video.paused) {
+        video.play();
+        playPauseBtn.textContent = 'Pause';
+      } else {
+        video.pause();
+        playPauseBtn.textContent = 'Play';
+      }
+    });
+  }
+  
+  // Fullscreen functionality
+  if (fullscreenBtn && video) {
+    fullscreenBtn.addEventListener('click', function() {
+      if (video.requestFullscreen) {
+        video.requestFullscreen();
+      } else if (video.webkitRequestFullscreen) { /* Safari */
+        video.webkitRequestFullscreen();
+      } else if (video.msRequestFullscreen) { /* IE11 */
+        video.msRequestFullscreen();
+      }
+    });
+  }
+  
+  // Update button text when video plays/pauses
+  if (video) {
+    video.addEventListener('play', function() {
+      if (playPauseBtn) playPauseBtn.textContent = 'Pause';
+    });
+    
+    video.addEventListener('pause', function() {
+      if (playPauseBtn) playPauseBtn.textContent = 'Play';
+    });
+  }
+});
