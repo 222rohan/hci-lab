@@ -1,0 +1,276 @@
+/* Base styles and reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    background-color: #ebf4ff; /* Light blue background */
+}
+
+button {
+    cursor: pointer;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+input:focus {
+    outline: none;
+}
+
+/* App container */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+.app-header {
+    background-color: #2563eb; /* Vibrant blue for trustworthiness */
+    color: white;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.app-header h1 {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* Main content */
+.app-main {
+    flex: 1;
+    max-width: 28rem;
+    margin: 0 auto;
+    padding: 1rem;
+    width: 100%;
+}
+
+/* Date navigation */
+.date-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.nav-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 9999px;
+    color: #4b5563;
+    transition: background-color 0.2s;
+}
+
+.nav-button:hover {
+    background-color: #dbeafe;
+}
+
+.date-navigation h2 {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: #1f2937;
+}
+
+/* Progress bar */
+.progress-container {
+    margin-bottom: 1.5rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.progress-header span {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #4b5563;
+}
+
+.progress-bar-container {
+    width: 100%;
+    background-color: #e5e7eb;
+    border-radius: 9999px;
+    height: 1rem;
+}
+
+.progress-bar {
+    height: 100%;
+    border-radius: 9999px;
+    transition: width 0.5s ease-out, background-color 0.5s ease-out;
+    width: 0%;
+    background-color: #f87171; /* Default red */
+}
+
+.progress-summary {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+    text-align: center;
+}
+
+/* Add habit form */
+.add-habit-container {
+    margin-bottom: 1.5rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.add-habit-container h2 {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: #1f2937;
+    margin-bottom: 0.75rem;
+}
+
+.add-habit-form {
+    display: flex;
+}
+
+#new-habit-input {
+    flex: 1;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem 0 0 0.5rem;
+    padding: 0.5rem 0.75rem;
+    transition: border-color 0.2s;
+}
+
+#new-habit-input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.add-btn {
+    background-color: #2563eb;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+.add-btn:hover {
+    background-color: #1d4ed8;
+}
+
+/* Habits list */
+.habits-container {
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.habits-container h2 {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: #1f2937;
+    margin-bottom: 0.75rem;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 1.5rem 0;
+    color: #6b7280;
+}
+
+.habit-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    transition: background-color 0.2s;
+}
+
+.habit-item:hover {
+    background-color: #f9fafb;
+}
+
+.habit-name {
+    font-weight: 500;
+    color: #1f2937;
+}
+
+.habit-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 9999px;
+    background-color: #f3f4f6;
+    color: #6b7280;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.toggle-btn:hover {
+    background-color: #e5e7eb;
+}
+
+.toggle-btn.completed {
+    background-color: #dcfce7;
+    color: #16a34a;
+}
+
+.toggle-btn.completed:hover {
+    background-color: #bbf7d0;
+}
+
+.delete-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 9999px;
+    background-color: #fee2e2;
+    color: #ef4444;
+    transition: background-color 0.2s;
+}
+
+.delete-btn:hover {
+    background-color: #fecaca;
+}
+
+/* Icon visibility control */
+.toggle-btn .check-icon {
+    display: none;
+}
+
+.toggle-btn .x-icon {
+    display: block;
+}
+
+.toggle-btn.completed .check-icon {
+    display: block;
+}
+
+.toggle-btn.completed .x-icon {
+    display: none;
+}

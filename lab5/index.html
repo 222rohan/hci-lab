@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1>Habit Tracker</h1>
+        </header>
+        
+        <!-- Main content -->
+        <main class="app-main">
+            <!-- Date navigation -->
+            <div class="date-navigation">
+                <button id="prev-day" class="nav-button" aria-label="Previous day">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                
+                <h2 id="current-date">Today</h2>
+                
+                <button id="next-day" class="nav-button" aria-label="Next day">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+            </div>
+            
+            <!-- Progress bar -->
+            <div class="progress-container">
+                <div class="progress-header">
+                    <span>Daily Progress</span>
+                    <span id="progress-percentage">0%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+                <div id="progress-summary" class="progress-summary">
+                    0 of 0 habits completed today
+                </div>
+            </div>
+            
+            <!-- Add new habit -->
+            <div class="add-habit-container">
+                <h2>Add New Habit</h2>
+                <div class="add-habit-form">
+                    <input 
+                        type="text" 
+                        id="new-habit-input" 
+                        placeholder="Enter habit name"
+                    >
+                    <button id="add-habit-btn" class="add-btn" aria-label="Add habit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Habits list -->
+            <div class="habits-container">
+                <h2>My Habits</h2>
+                <div id="habits-list" class="habits-list">
+                    <div class="empty-state">
+                        No habits added yet. Add your first habit above!
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Habit item template (hidden) -->
+    <template id="habit-template">
+        <div class="habit-item">
+            <span class="habit-name"></span>
+            <div class="habit-actions">
+                <button class="toggle-btn" aria-label="Toggle completion">
+                    <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <svg class="x-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <button class="delete-btn" aria-label="Delete habit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                </button>
+            </div>
+        </div>
+    </template>
+
+    <script src="script.js"></script>
+</body>
+</html>
